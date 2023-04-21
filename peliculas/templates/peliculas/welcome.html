@@ -1,0 +1,42 @@
+{% extends "peliculas/base.html" %}
+
+{% block title %}Bienvenidos{% endblock title %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+
+
+                <div class="card">
+                    <div class="card-header bg-blue-400">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-2xl text-white"> Ultimos Ingresos :</p>
+                            </div>
+                            <div class="col">
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            {% for peliculas in listado_peliculas %}
+                                <div class="col-sm-3">
+                                    {% include "./caratula.html" %}
+              
+                                </div>
+                            {% endfor %}
+                            
+                        </div>
+                        <br>
+                       
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
