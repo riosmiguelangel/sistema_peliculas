@@ -4,12 +4,11 @@
         <div class="card ">
 
             <div class="contenedor">
-                <img src="{% static '/imagenes/joker.png' %}" alt="Portada"
+                <img src="{% static '/imagenes/'%}{{peliculas_list.portada}}"  alt="Portada"
                     class="card-img-top image imagen_p" style="width:100%;min-height:350px">
-                    
                 <div class="middle">
                     <div class="texto">
-                        <strong>Resumen: </strong> {{peliculas.resumen}}
+                        <strong>Resumen: </strong> {{peliculas_list.resumen}}
                     </div>
                 </div>
 
@@ -17,9 +16,11 @@
 
             <div class="card-body">
                 <div style="height: 90px">
-                    <p class="text-2xl">{{peliculas.titulo}}</p>
-                    {{peliculas.nombre}} ({{peliculas.estreno }})
-                    
+                    <p class="text-2xl">{{peliculas_list.titulo}}</p>
+                    {{peliculas_list.nombre}} ({{peliculas_list.estreno }})
+                </div>
+                <div style="height: 90px">
+                    <p class="text-2xl">{{peliculas.}}</p>
                 </div>
                 {% comment %} <hr class="mt-2 mb-2" />
                 <strong>Director:</strong> <a href="{{route('peliculas.find',$pelicula->Id_director)}}"> {{ $pelicula->director }} </a> 
@@ -37,5 +38,6 @@
                 <p class="float-right"> <img src="{{ asset('/storage/imagenes/usuario.png') }}" style="width:22px"
                         class="float-left"> {{ $pelicula->usuario }} </p> {% endcomment %}
             </div>
+            
         </div>
     </div>

@@ -1,0 +1,63 @@
+{% load static %}
+<div class="container">
+
+    <div class="card ">
+
+
+        <div class="contenedor">
+            <img src="{% static '/imagenes/'%}{{peliculas_list.portada}}"  alt="Portada"
+                class="card-img-top image imagen_p" style="width:100%;min-height:350px">
+
+            <div class="middle">
+                <div class="texto">
+                    <strong>Resumen: </strong> {{peliculas_list.resumen}}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <div style="height: 90px">
+                <p class="text-2xl">{{peliculas_list.titulo}}</p>
+                    {{peliculas_list.nombre}} ({{peliculas_list.estreno }})
+            </div>
+            <hr class="mt-2 mb-2" />
+            {% comment %} <strong>Director:</strong> <a href="{{ route('peliculas.find', $pelicula->Id_director) }}">
+                {{ $pelicula->director }} </a>
+            <hr class="mt-2 mb-2" />
+            <div style="height: 90px">
+                <strong>Reparto:</strong> <br class="mt-2 mb-2" />
+                <a href="{{ route('peliculas.find', $pelicula->Id_artista1) }}"> {{ $pelicula->actor1 }} </a> <br
+                    class="mt-2 mb-2" />
+                @if ($pelicula->actor2)
+                    <a href="{{ route('peliculas.find', $pelicula->Id_artista2) }}"> {{ $pelicula->actor2 }} </a> <br
+                        class="mt-2 mb-2" />
+                @endif
+                <a href="{{ route('peliculas.find', $pelicula->Id_artista3) }}"> {{ $pelicula->actor3 }} </a>
+            </div>{% endcomment %}
+            <hr class="mt-2 mb-2" />
+            <div class="row">
+                <div class="col-sm-4"> </div>
+                <div class="col-sm-4">
+                    {% comment %} <form action="{{ route('peliculas.home', $pelicula) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <input type="image" src="{% static '/imagenes/borrar.png' %}" alt="Submit"
+                            class="float-right">
+                    {% comment %} </form>  {% endcomment %}
+                    <a href="{% url 'home' %}"><img
+                        src="{% static '/imagenes/borrar.png' %}"></a>    
+
+                </div>
+                <div class="col-sm-4">
+                    <a href="{% url 'edit' %}"><img
+                            src="{% static '/imagenes/editar.png' %}"></a>
+                </div>
+            </div> 
+
+        </div>
+
+    </div>
+</div>
+
+<br>

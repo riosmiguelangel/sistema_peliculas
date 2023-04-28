@@ -19,17 +19,23 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="card-body">
                         <div class="row">
-                            {% for peliculas in lista_peliculas %}
+                            {% for peliculas_list in object_list %}
                                 <div class="col-sm-3">
                                     {% include "./caratula.html" %}
-              
                                 </div>
                             {% endfor %}
-                            <h2>{{listado_peliculas.titulo}}</h2>
                         </div>
+                        {% comment %} <div class="row">
+                             {% for generos in object_list %}
+                                <div class="col-sm-3">
+                                    {% include "./caratula.html" %}
+                                   
+                                </div>
+                            {% endfor %}
+                        </div> {% endcomment %}
                         <br>
                        
                     </div>
