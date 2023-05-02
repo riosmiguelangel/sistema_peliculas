@@ -10,14 +10,20 @@ class Artistas(models.Model):
     class Meta:
         managed = False
         db_table = 'artistas'
+    
+    def __str__(self):
+        return self.nombre
         
 class Generos(models.Model):
     # id_genero= models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
-   
+
     class Meta:
         managed = False
         db_table = 'generos'
+    
+    def __str__(self):
+        return self.nombre
 
 
 class Peliculas(models.Model):

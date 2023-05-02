@@ -10,6 +10,7 @@ urlpatterns = [
     path('/home', PeliculasHomeListView.as_view(), name="home"),
     path('/create', views.create, name="create"),
     path('/edit', views.edit, name="edit"),
+    path('/edit2', views.edit2, name="edit2"),
     path('/home', views.destroy, name="home"),
     path('/buscador', views.buscador, name="buscador"),
 ]
