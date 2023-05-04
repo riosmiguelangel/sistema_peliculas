@@ -1,0 +1,85 @@
+{% extends "peliculas/base.html" %}
+
+ {% block content %}
+ {% load static %}
+ 
+ <div class="container">
+    
+            <!--Grid column-->
+                <div class="col-md-6 mb-md-0 mb-6">
+                    
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                    </div>
+                                <form id="edit-form" name="edit-form" action="{% url 'edit2' %}" method="POST" novalidate>
+                                    {% csrf_token %} {{ contacto_form.as_p }} 
+                                   
+                                        
+                                        {% for campo in edit_form %}
+                                        <div class="col-md-8">
+                                            <div class="md-form mb-4">
+                                            
+                                                    <label for="name" class="form-label">{{ campo.label}}: </label>
+                                                    {{campo}}
+                                                </div>
+                                                
+                                                <div>{{campo.errors}}</div>
+                                            </div>
+                                            <!--Grid column-->
+                                        {% endfor %}
+                                        
+                                    </div>
+                                    <img id="preview-image-before-upload" style="max-height: 250px" >
+                                        </div> 
+                                        <div class="card-footer bg-info"> <a name="" id="" class="btn btn-dark" href="{% url 'home' %}"
+                                            role="button">Mi
+                                            Lista</a>
+                                        <button type="submit" id="grabar" class="btn btn-dark">Grabar</button>
+                 </div>
+                </div>
+                
+                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+               
+                <script>
+                   
+                    $(document).ready(function(e) {
+
+
+                        $('#id_portada').change(function() {
+            
+                            let reader = new FileReader();
+            
+                            reader.onload = (e) => {
+                                $('#preview-image-before-upload').attr('src', e.target.result);
+                            }
+            
+                            reader.readAsDataURL(this.files[0]);
+            
+                        });
+            
+                    });
+            
+                 
+                    $('#grabar').click(function() { 
+                            
+                            //validaciones
+                            titulo = $("#id_titulo").val();if( titulo == null || titulo.length == 0 || /^\s+$/.test(titulo) ) {$("#id_titulo").append("<p>titulo no valido</p>")};
+                            año = $("#id_estreno").val();if( isNaN(año) ) { $("#id_estreno").append("<p>Debe ingresar el año de estreno en numeros</p>")};
+                            genero= $("#id_genero").val();if (genero =! 0) { $("#id_genero").append("<p>Debe elegir un genero</p>")};
+                            director= $("#id_director").val();if (director =! 0) { $("#id_director").append("<p>Seleccione un director</p>")};
+                            artis1= $("#id_artista1").val();if (artis1 =! 0) { $("#id_artista1").append("<p>Seleccione un artista</p>")};
+                            artis2= $("#id_artista2").val();if (artis2 =! 0){ $("#id_artista2").append("<p>Seleccione un artista</p>")};
+                            artis3= $("#id_artista3").val();if (artis3 =! 0) { $("#id_artista3").append("<p>Seleccione un artista</p>")};
+                            resumen= $("#id_resumen").val();if( resumen == null || resumen.length == 0 || /^\s+$/.test(resumen) ) { $("#id_resumen").append("<p>Debe ingresar un resumen de la pelicula</p>")};
+                    
+                        })
+                    
+                    
+                
+            </script>
+                
+                {% endblock %}

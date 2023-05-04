@@ -1,7 +1,5 @@
 {% extends "peliculas/base.html" %}
 
-{% comment %} {% block title %}Bienvenidos{% endblock title %} {% endcomment %}
-
 {% block content %}
 {% load static %}
     <div class="container">
@@ -10,17 +8,10 @@
 
             <div class="col-md-12">
                 <form action="" method="POST" enctype="multipart/form-data">
-                {% comment %} <form action="{{ route('peliculas.update', $pelicula) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('put') {% endcomment %}
                     <div class="card">
-
-
                         <div class="card-header bg-info text-white">
                             <p class="text-2xl text-white">Edición de Película</p>
                         </div>
-
-
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
@@ -29,7 +20,6 @@
                                         <input type="text" class="form-control" id="titulo"
                                             placeholder="Ingrese Titulo de la Película" name="titulo"
                                             value="" required>
-                                            {% comment %} value="{{ $pelicula->titulo }}" required> {% endcomment %}
                                         <div class="valid-feedback">Valido.</div>
                                         <div class="invalid-feedback">Por favor complete este campo.</div>
                                     </div>
@@ -38,13 +28,8 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {% comment %} <label for="Id_genero">Genero: {{ $pelicula->Id_genero }}</label> {% endcomment %}
                                                 <label for="Id_genero">Genero: </label>
                                                 <select class="form-control" name="Id_genero" id="Id_genero">
-                                                    {% comment %} @foreach ($generos as $genero)
-                                                        <option value="{{ $genero['id'] }}" @if ($pelicula->Id_genero == $genero['id']) {{ 'selected' }} @endif>
-                                                            {{ $genero['nombre'] }}</option>
-                                                    @endforeach {% endcomment %}
                                                 </select>
                                             </div>
                                         </div>
@@ -53,7 +38,6 @@
                                                 <label for="estreno">Año:</label>
                                                 <input type="number" class="form-control" id="estreno" min="1900" max="2200"
                                                     placeholder="Ingresa Año de Estreno" name="estreno"
-                                                    {% comment %} value="{{ $pelicula->estreno }}" required> {% endcomment %}
                                                     value="" required>
                                                 <div class="valid-feedback">Valido.</div>
                                                 <div class="invalid-feedback">Por favor complete este campo.</div>
@@ -65,7 +49,6 @@
                                     <div class="form-group">
                                         <label for="resumen">Resumen:</label>
                                         <textarea class="form-control" rows="5" name="resumen" id="resumen"
-                                            {% comment %} required>{{ $pelicula->resumen }}</textarea> {% endcomment %}
                                             required></textarea>
                                     </div>
 
@@ -75,20 +58,12 @@
                                     <div class="form-group">
                                         <label for="Id_director">Director:</label>
                                         <select class="form-control" name="Id_director" id="Id_director">
-                                           {% comment %}  @foreach ($artistas as $artista)
-                                                <option value="{{ $artista['id'] }}" @if ($pelicula->Id_director == $artista['id']) {{ 'selected' }} @endif>
-                                                    {{ $artista['nombre'] }}</option>
-                                            @endforeach {% endcomment %}
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="Id_artista1">Protagonista 1:</label>
                                         <select class="form-control" name="Id_artista1" id="Id_artista1">
-                                            {% comment %} @foreach ($artistas as $artista)
-                                                <option value="{{ $artista['id'] }}" @if ($pelicula->Id_artista1 == $artista['id']) {{ 'selected' }} @endif>
-                                                    {{ $artista['nombre'] }}</option>
-                                            @endforeach {% endcomment %}
                                         </select>
                                     </div>
 
@@ -96,10 +71,6 @@
                                         <label for="Id_artista2">Protagonista 2:</label>
                                         <select class="form-control" name="Id_artista2" id="Id_artista2">
                                             <option value='0'> Seleccione un Opción </option>
-                                            {% comment %} @foreach ($artistas as $artista)
-                                                <option value="{{ $artista['id'] }}" @if ($pelicula->Id_artista2 == $artista['id']) {{ 'selected' }} @endif>
-                                                    {{ $artista['nombre'] }}</option>
-                                            @endforeach {% endcomment %}
                                         </select>
                                     </div>
 
@@ -107,14 +78,8 @@
                                         <label for="Id_artista3">Protagonista 3</label>
                                         <select class="form-control" name="Id_artista3" id="Id_artista3">
                                             <option value='0'> Seleccione un Opción </option>
-                                            {% comment %} @foreach ($artistas as $artista)
-                                                <option value="{{ $artista['id'] }}" @if ($pelicula->Id_artista3 == $artista['id']) {{ 'selected' }} @endif>
-                                                    {{ $artista['nombre'] }}</option>
-                                            @endforeach {% endcomment %}
                                         </select>
                                     </div>
-
-
                                 </div>
 
                                 <div class="col-md-4">
@@ -123,33 +88,19 @@
                                         <label for="portada">Portada: </label>
                                         <input class='btn btn-primary' type="file" name="portada" id="portada"
                                             placeholder="Seleccione Imagen de Portada" accept="image/*">
-                                        {% comment %} @error('portada')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                        @enderror {% endcomment %}
                                     </div>
-
-                                    {% comment %} <img id="preview-image-before-upload" {% endcomment %}
-                                        {% comment %} src="{{ asset('/storage/portadas/' . $pelicula->portada) }}" alt="portada" {% endcomment %}
-                                        {% comment %} style="max-height: 250px;">  {% endcomment %}
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="card-footer bg-info "> <a name="" id="" class="btn btn-dark" href="{% url 'home' %}"
                                 role="button">Mi
                                 Lista</a>
                             <button type="submit" class="btn btn-dark">Grabar</button>
                         </div>
-
-
                     </div>
-
                 </form>
             </div>
-
         </div>
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

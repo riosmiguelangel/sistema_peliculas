@@ -19,5 +19,5 @@ from peliculas import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('peliculas', include('peliculas.urls'),)
+    path('peliculas/', include('peliculas.urls'),)
 ]

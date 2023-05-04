@@ -20,19 +20,6 @@
                     </div>
 
                     <div class="card-body">
-                       {% comment %}  @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif {% endcomment %}
-
-                       {% comment %}  <div class="row">
-                            @foreach ($peliculas as $pelicula)
-                                <div class="col-sm-3">
-                                    <x-edit-pelicula :pelicula="$pelicula" />
-                                </div>
-                            @endforeach
-                        </div> {% endcomment %}
                         <div class="card-body">
                             <div class="row">
                                 {% for peliculas_list in object_list %}
@@ -42,7 +29,6 @@
                                 {% endfor %}
                             </div>
                         <br>
-                        {% comment %} {{$peliculas->links()}} {% endcomment %}
                     </div>
                 </div>
 

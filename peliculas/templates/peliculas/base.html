@@ -39,9 +39,7 @@
                 &nbsp   
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
- 
-                    
+
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
@@ -49,45 +47,16 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <!-- Authentication Links -->
-                        {% comment %} @guest
-                            @if (Route::has('login')) {% endcomment %}
-                                <li class="nav-item">
-                                    {% comment %} <a class="nav-link text-white " href="{{ route('login') }}">{{ __('Ingreso') }}</a> {% endcomment %}
-                                    <a class="nav-link text-white " href="{% url 'home' %}">Ingreso</a>
-                                </li>
-                          {% comment %}   @endif
-                            
-                            @if (Route::has('register')) {% endcomment %}
-                                <li class="nav-item">
-                                    {% comment %} <a class="nav-link text-white " href="{{ route('register') }}">{{ __('Registro') }}</a> {% endcomment %}
-                                    <a class="nav-link text-white " href="">Registro</a>
-                                </li>
-                          {% comment %}   @endif
-                        @else {% endcomment %}
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {% comment %} {{ Auth::user()->name }} {% endcomment %}
-                                </a>
-
-                                {% comment %} <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Salir') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div> {% endcomment %}
-                            </li>
-                        {% comment %} @endguest {% endcomment %}
-                    </ul>
-
-
- 
+                        <li class="nav-item">
+                            <a class="nav-link text-white " href="{% url 'home' %}">Ingreso</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white " href="">Registro</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            </a>
+                        </li>
                     </ul>
                     <a href="{% url 'buscador' %}">
                         <img src="{% static '/imagenes/search.png' %}" style="width:37px" class="float-right"> 
