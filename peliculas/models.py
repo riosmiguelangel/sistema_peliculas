@@ -145,6 +145,9 @@ class Generos(models.Model):
     class Meta:
         managed = False
         db_table = 'generos'
+    
+    def __str__(self):
+        return self.nombre
 
     def __str__(self):
         return self.nombre

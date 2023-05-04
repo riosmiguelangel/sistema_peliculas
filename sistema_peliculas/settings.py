@@ -81,7 +81,7 @@ DATABASES = {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
 		'NAME' : 'peliculas',
 		'USER' : 'postgres',
-		'PASSWORD' : 'DjG9',
+		'PASSWORD' : '1234',
 		'HOST' : 'localhost', # localhost en caso de tenerlo en local y la URL de la base de datos en caso de tenerlo en algún servicio en la nube
 		'PORT' : '5432' # Si usas el puerto default no pongas esta línea y si lo has cambiado especifícaselo aquí
 	}
