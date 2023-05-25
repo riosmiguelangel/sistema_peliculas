@@ -9,9 +9,8 @@
 
 
             <div class="col-md-12">
-                {% comment %} <form action="{{ route('peliculas.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf {% endcomment %}
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="card">
                         <div class="card-header bg-info text-white">
                             <p class="text-2xl text-white">Ingreso de Películas</p>
@@ -37,13 +36,14 @@
                                                         <option value="{{ $genero['id'] }}">{{ $genero['nombre'] }}
                                                         </option>
                                                     @endforeach {% endcomment %}
-                                                    {% for genero in listado_generos %}
-                                                        <option value="{{genero.id}}">{{genero.nombre }}
+                                                    
+                                                    {% for genero in generos %}
+                                                        <option value={{nombre}}
+
                                                         </option>
                                                     {% endfor %}                                                    
                                                 </select>
                                                 <p class="text-2xl">{{listado_genero.nombre}}</p>
-                                                <h2>Generos Miguel {{genero.id}}</h2>
                                             </div>
                                         </div>
                                         <div class="col-md-4">

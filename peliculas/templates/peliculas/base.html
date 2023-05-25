@@ -3,8 +3,8 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
     <!-- CSRF Token -->
     <meta name="csrf-token" content="">
 
@@ -53,12 +53,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-white " href="">Registro</a>
                         </li>
+                        <li class="nav-item">
+                            {% comment %} <a class="nav-link text-white " href="{% url 'administracion' %}">Administrar</a> {% endcomment %}
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             </a>
                         </li>
                     </ul>
-                    <a href="{% url 'buscador' %}">
+                    <a href="">
                         <img src="{% static '/imagenes/search.png' %}" style="width:37px" class="float-right"> 
                     </a>
                 </div>

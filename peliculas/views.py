@@ -1,31 +1,39 @@
-from django.shortcuts import render
+from typing import Generic
+from django.http import Http404
+from django.shortcuts import render, redirect
 from peliculas.models import Peliculas
 from peliculas.models import Generos
 from peliculas.models import Artistas
+from peliculas.models import Elenco
 from django.views.generic import ListView
 
-from sistema_peliculas.forms import EditForm
+from sistema_peliculas.forms import EditForm, GeneroForm
 from django.contrib import messages
 
 
 # Create your views here.
-def index(request):
-    
-    lista_peliculas = Peliculas.objects.all() 
-
-    context={
-            'lista_peliculas' : lista_peliculas,
-
-            }
-    return render(request, 'peliculas/welcome.html', context)
-
 class PeliculasListView(ListView):
     model=Peliculas
+    context_object_name = 'peliculas'
     template_name = 'peliculas/welcome.html'
+    queryset = Peliculas.objects.all()
+    ordering = ['titulo']
+    paginate_by = 6
+    # pelicula.artistas.all()
+    # queryset= Peliculas.artistas
+    
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return context
+    
+# Class CategoriaListView(ListView):
+#     model = Categoria
+#     context_object_name = 'categorias'
+#     template_name= 'administracion/categorias/index.html'
+#     queryset= Categoria.objects.filter(baja=False)
+#     ordering = ['nombre']
+#     paginate_by = 6
     
 
 class PeliculasHomeListView(ListView):
@@ -36,39 +44,26 @@ class PeliculasHomeListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+def home_show(request):
+    peliculas = Peliculas.objects.all()
+    # artistas = Artistas.objects.all()
+    artistas = Elenco.objects.all()
+    
+    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas})
+
+def home_peliculas(request):
+    peliculas = Peliculas.objects.all()
+    # artistas = Artistas.objects.all()
+    artistas = Elenco.objects.all()
+    
+    return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas})
 
 def create(request):
-        generos = Generos.objects.all(),
-        artistas = Artistas.objects.all(),
-
-        context={
-        'listado_generos' : generos,
-    }
-        return render(request, 'peliculas/create.html', context)
-   
-
-def store():
-    pass
-
-
-def destroy(request):
-
-    return render(request, 'peliculas/home.html')
-    
-
-
-def edit(request):
     generos = Generos.objects.all(),
-    peliculas = Peliculas.objects.all(),
     artistas = Artistas.objects.all(),
 
-    context={
-        'generos' : generos,
-        'peliculas' : peliculas,
-        'artistas' : artistas
-    }
+    return render(request, 'peliculas/create.html', {'generos':generos, 'artistas':artistas})
 
-    return render(request, 'peliculas/edit.html', context)
 
 def edit2(request):
    
@@ -78,13 +73,13 @@ def edit2(request):
            pelicula = Peliculas()
            
            pelicula.titulo = edit_form.cleaned_data["titulo"]
-           pelicula.id_genero = edit_form.cleaned_data["genero"]
+           pelicula.genero = edit_form.cleaned_data["genero"]
            pelicula.estreno = edit_form.cleaned_data["estreno"]
            pelicula.resumen = edit_form.cleaned_data["resumen"]
            pelicula.director = edit_form.cleaned_data["director"]
-           pelicula.id_artista1 = edit_form.cleaned_data["id_artista1"]
-           pelicula.id_artista2 = edit_form.cleaned_data["id_artista2"]
-           pelicula.id_artista3 = edit_form.cleaned_data["id_artista3"]
+        #    pelicula.id_artista1 = edit_form.cleaned_data["id_artista1"]
+        #    pelicula.id_artista2 = edit_form.cleaned_data["id_artista2"]
+        #    pelicula.id_artista3 = edit_form.cleaned_data["id_artista3"]
            pelicula.portada = edit_form.cleaned_data["portada"]
 
            pelicula.save()
@@ -92,17 +87,60 @@ def edit2(request):
             # acción para tomar los datos del formulario            
         else:
             messages.warning(request,'Por favor revisa los campos')
+            messages.add_message(request, messages.WARNING, 'Revisa los campos')
     else:
         edit_form = EditForm()
    
     return render(request, 'peliculas/edit2.html', { "edit_form" : edit_form })
 
+def index_administracion(request):
+    variable = 'test variable'
+    return render(request,'peliculas/administracion/index_administracion.html',
+                  {'variable':variable})
 
-def nada():
-     pass
+def peliculas_index(request):
+    #queryset
+    peliculas = Peliculas.objects.all()
+    return render(request,'peliculas/peliculas_index.html',{'peliculas':peliculas})
 
 
-def buscador(Request):
-    
-   
-    return render(Request, 'peliculas/buscador.html')
+"""
+    CRUD generos
+"""
+def generos_index(request):
+    #queryset
+    generos = Generos.objects.all()
+    return render(request,'peliculas/administracion/generos/index.html',{'generos': generos})
+
+def generos_nuevo(request):
+    if(request.method=='POST'):
+        formulario = GeneroForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('generos_index')
+    else:
+        formulario = GeneroForm()
+    return render(request,'peliculas/administracion/generos/nuevo.html',{'form':formulario})
+
+def generos_editar(request,id_genero):
+    try:
+        genero = Generos.objects.get(pk=id_genero)
+    except Generos.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = GeneroForm(request.POST,instance=genero)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('generos_index')
+    else:
+        formulario = GeneroForm(instance=genero)
+    return render(request,'peliculas/administracion/generos/editar.html',{'form':formulario})
+
+def generos_eliminar(request,id_genero):
+    try:
+        genero = Generos.objects.get(pk=id_genero)
+    except Generos.DoesNotExist:
+        return render(request,'administracion/404_admin.html')    
+    genero.delete()
+    return redirect('generos_index')

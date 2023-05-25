@@ -5,12 +5,12 @@
 
 
         <div class="contenedor">
-            <img src="{% static '/imagenes/'%}{{peliculas_list.portada}}"  alt="Portada"
+            <img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
                 class="card-img-top image imagen_p" style="width:100%;min-height:350px">
 
             <div class="middle">
                 <div class="texto">
-                    <strong>Resumen: </strong> {{peliculas_list.resumen}}
+                    <strong>Resumen: </strong> {{pelicula.resumen}}
                 </div>
             </div>
 
@@ -18,18 +18,21 @@
 
         <div class="card-body">
             <div style="height: 90px">
-                <p class="text-2xl">{{peliculas_list.titulo}}</p>
-                {{peliculas_list.id_genero.nombre}} ({{peliculas_list.estreno }})
+                <p class="text-2xl">{{pelicula.titulo}}</p>
+                {{pelicula.genero}} ({{pelicula.estreno }}) 
+                {{peliculas_list.id}}
             </div>
             <hr class="mt-2 mb-2" />
-            <strong>Director:</strong> <a href="">{{peliculas_list.id_director.nombre}}</a>             
+            <strong>Director:</strong> <a href="">{{pelicula.director}}</a>  
             <hr class="mt-2 mb-2" />
             <div style="height: 90px">
             <strong>Reparto:</strong> <br class="mt-2 mb-2" />
+                {% for artista in artistas %}
+                    <p>{{artista.artista}}</p>
+                {% endfor %} 
             <a href=""> {{peliculas_list.id_artista1.nombre}} </a> <br class="mt-2 mb-2" />
             {{peliculas_list.id_artista2.nombre}}</a> <br class="mt-2 mb-2" />
-                {% comment %} <a href=""> {{peliculas_list.id_artista1.nombre}} </a> <br class="mt-2 mb-2" />    {% endcomment %}
-            {% comment %} {% endif %}   {% endcomment %}
+
             <a href=""> {{peliculas_list.id_artista3.nombre}} </a>  
         
             </div>            
@@ -43,7 +46,7 @@
                 </div>
                 <div class="col-sm-4">
                     <a href="{% url 'edit2' %}"><img
-                            src="{% static '/imagenes/editar.png' %}"></a>
+                            src="{% static '/imagenes/editar.jpg' %}"></a>
                 </div>
             </div> 
 

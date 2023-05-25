@@ -22,9 +22,11 @@
                     <div class="card-body">
                         <div class="card-body">
                             <div class="row">
-                                {% for peliculas_list in object_list %}
+                                {% for pelicula in peliculas %}
                                     <div class="col-sm-3">
                                         {% include "./edit-pelicula.html" %}
+                                        {% comment %} {% include "./caratula.html" %} {% endcomment %}
+                                        {% comment %} {% include "./edit2.html" %} {% endcomment %}
                                     </div>
                                 {% endfor %}
                             </div>

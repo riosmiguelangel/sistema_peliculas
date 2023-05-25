@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1h#xl#0(hdcu!r6+pn$eb-w0-fzn)o@&2(@soa*$u$swsmeot^'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'peliculas',
+    'crispy_forms',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,17 +83,30 @@ WSGI_APPLICATION = 'sistema_peliculas.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
+""" DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME' : 'peliculas',
+		'NAME' : 'base_peliculas',
 		'USER' : 'postgres',
-		'PASSWORD' : '1234',
+		'PASSWORD' : 'DjG9',
 		'HOST' : 'localhost', # localhost en caso de tenerlo en local y la URL de la base de datos en caso de tenerlo en algún servicio en la nube
 		'PORT' : '5432' # Si usas el puerto default no pongas esta línea y si lo has cambiado especifícaselo aquí
 	}
-}
+} """
 
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -131,3 +151,18 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'peliculas/static'),)
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#donde vamos a ir guardar los archivos medias debug
+MEDIA_URL = "/imagenes/"
+#media para produccion
+MEDIA_ROOT = os.path.join(BASE_DIR,'imagenes')
+
+#Configuracion para el envio de email por medio de GMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+# Clave generada desde la configuracion de Google
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
