@@ -1,0 +1,21 @@
+{% extends 'peliculas/base.html' %}
+
+{% block title %}Artistas{% endblock%}
+
+{% block content %}
+<p class="text-2xl">Artistas peliculas</p>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'artistas_index' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Editar Artista</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">Edicion de artista</div>
+    <div class="card-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% include 'peliculas/administracion/artistas/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}

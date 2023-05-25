@@ -193,3 +193,24 @@ class PeliculaForm(forms.ModelForm):
     class Meta:
         model=Peliculas
         fields=['titulo','estreno','portada','resumen','genero']
+
+
+class ArtistasForm(forms.ModelForm):
+    # nombre = forms.CharField(error_messages={'required':'Hello! no te olvide de mi!'})
+
+    # def clean_nombre(self):
+    #     pass
+    
+    class Meta:
+        model=Artistas
+        # fields='__all__'
+        fields=['nombre']
+        # exclude=('baja',)
+        widgets = {
+            'nombre' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese nombre del artista'})
+        }
+        error_messages = {
+            'nombre' :{
+                'required':'No te olvides de mi!'
+            }
+        }

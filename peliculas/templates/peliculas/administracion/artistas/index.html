@@ -1,0 +1,91 @@
+{% extends 'peliculas/base.html' %}
+
+{% block title %}Artistas{% endblock%}
+
+{% block content %}
+{% load static %}
+<p class="text-2xl">Artistas de peliculas</p>
+<ol class="breadcrumb mb-4">
+    {% comment %} <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li> {% endcomment %}
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Artistas</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        {% comment %} <h3>Filtros</h3> {% endcomment %}
+    </div>
+    <div class="card-body">
+        <form action="">
+            <div class="row">
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Nombre</label>
+                        
+                        <input type="text" 
+                              id="nombre" 
+                              name="nombre"
+                              placeholder="Ingrese el nombre del artista" 
+                              class="form-control">
+                    </div>
+                </div>
+                <div class="col-3 ">
+                    <button class="btn btn-primary mt-4">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <a name="" id="" class="btn btn-success" href="{% url 'artistas_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <!-- bs5-table-defaul -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for artista in artistas %}
+                    <tr>
+                        <td>{{artista.id}}</td>
+                        <td>{{artista.nombre}}</td>
+                        <td>
+                            <a href="{% url 'artistas_editar' artista.id %}" title="Editar" class="btn btn-warning"><img
+                                src="{% static '/imagenes/editar.png' %}" width="30px"></i></a>
+                            <a href="{% url 'artistas_eliminar' artista.id %}" title="Eliminar" class="btn btn-danger"><img
+                                src="{% static '/imagenes/borrar.png' %}" width="30px"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
+                {% endif %}
+        
+                <li class="page-item">
+                    <a class="page-link">{{ page_obj.number }}</a>
+                </li>
+        
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>
+
+{% endblock %}
+    

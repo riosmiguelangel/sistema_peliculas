@@ -1,0 +1,22 @@
+{% extends 'peliculas/base.html' %}
+
+{% block title %}Artistas{% endblock%}
+
+{% block content %}
+<p class="text-2xl">Artistas de peliculas</p>
+<ol class="breadcrumb mb-4">
+    {% comment %} <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li> {% endcomment %}
+    <li class="breadcrumb-item active">Nuevo Artista</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Agregar un Artista</div>
+    <div class="card-body">
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {% include 'peliculas/administracion/artistas/form.html' %}
+        </form>
+    </div>
+</div>
+{% endblock %}
