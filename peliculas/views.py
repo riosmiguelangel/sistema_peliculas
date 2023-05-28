@@ -7,7 +7,7 @@ from peliculas.models import Artistas
 from peliculas.models import Elenco
 from django.views.generic import ListView
 
-from sistema_peliculas.forms import EditForm, GeneroForm
+from sistema_peliculas.forms import EditForm, GeneroForm, ArtistasForm
 from django.contrib import messages
 
 
@@ -143,3 +143,45 @@ def generos_eliminar(request,id_genero):
         return render(request,'administracion/404_admin.html')    
     genero.delete()
     return redirect('generos_index')
+
+"""
+    CRUD artistas
+"""
+def artistas_index(request):
+    #queryset
+    artistas = Artistas.objects.all()
+    return render(request,'peliculas/administracion/artistas/index.html',{'artistas': artistas})
+
+def artistas_nuevo(request):
+    if(request.method=='POST'):
+        formulario = ArtistasForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('artistas_index')
+    else:
+        formulario = ArtistasForm()
+    return render(request,'peliculas/administracion/artistas/nuevo.html',{'form':formulario})
+
+def artistas_editar(request,id_artista):
+    try:
+        artista = Artistas.objects.get(pk=id_artista)
+    except Artistas.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = ArtistasForm(request.POST,instance=artista)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('artistas_index')
+    else:
+        formulario = ArtistasForm(instance=artista)
+    return render(request,'peliculas/administracion/artistas/editar.html',{'form':formulario})
+
+def artistas_eliminar(request,id_artista):
+    try:
+        artista = Artistas.objects.get(pk=id_artista)
+    except Artistas.DoesNotExist:
+        return render(request,'administracion/404_admin.html')    
+    artista.delete()
+    return redirect('artistas_index')
+

@@ -22,4 +22,10 @@ urlpatterns = [
     path('generos/nuevo', views.generos_nuevo,name='generos_nuevo'),
     path('generos/editar/<int:id_genero>', views.generos_editar,name='generos_editar'),
     path('generos/eliminar/<int:id_genero>', views.generos_eliminar,name='generos_eliminar'),
+
+    path('artistas/index', views.artistas_index,name='artistas_index'),
+    path('artistas/nuevo', views.artistas_nuevo,name='artistas_nuevo'),
+    path('artistas/editar/<int:id_artista>', views.artistas_editar,name='artistas_editar'),
+    path('artistas/eliminar/<int:id_artista>', views.artistas_eliminar,name='artistas_eliminar'),
+
 ]
