@@ -53,7 +53,6 @@ def home_show(request):
 
 def home_peliculas(request):
     peliculas = Peliculas.objects.all()
-    # artistas = Artistas.objects.all()
     artistas = Elenco.objects.all()
     
     return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas})
