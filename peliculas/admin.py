@@ -5,36 +5,26 @@ from .models import Peliculas
 from .models import Generos
 from .models import Artistas
 from .models import Elenco
-# admin.site.register(Artistas)
-# admin.site.register(Peliculas)
-# admin.site.register(Generos)
-# admin.site.register(Elenco)
+from .models import PeliculasAdmin
+admin.site.register(Artistas)
+admin.site.register(Peliculas,PeliculasAdmin)
+admin.site.register(Generos)
+admin.site.register(Elenco)
 
 
-
-@admin.register(Artistas)
-class PeliculasArtistas(admin.ModelAdmin):
+class ArtistasAdmin(admin.ModelAdmin):
     list_display = ('id','nombre')
     list_per_page = 15
 
-
-@admin.register(Peliculas)
 class PeliculasAdmin(admin.ModelAdmin):
-    list_display = ('id', 'titulo', 'estreno')
-    list_per_page = 5
- 
-"""@admin.register(Peliculas1)
-class PeliculasAdmin1(admin.ModelAdmin):
-    list_display = ('id', 'titulo', 'estreno','resumen')
-    list_per_page = 5 """
+     list_display = ('id','titulo','estreno')
+     list_per_page = 5 
 
-@admin.register(Elenco)
-class PeliculasElenco(admin.ModelAdmin):
+class ElencoAdmin(admin.ModelAdmin):
     list_display = ('id','pelicula', 'artista')
     list_per_page = 5  
 
 
-@admin.register(Generos)
-class PeliculasGeneros(admin.ModelAdmin):
+class GenerosAdmin(admin.ModelAdmin):
     list_display = ('id','nombre' )
     list_per_page = 5  

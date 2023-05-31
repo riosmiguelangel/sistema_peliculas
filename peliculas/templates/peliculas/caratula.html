@@ -1,8 +1,6 @@
 {% load static %}
     <div class="container">
-
         <div class="card ">
-
             <div class="contenedor">
                 <img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
                     class="card-img-top image imagen_p" style="width:100%;min-height:350px">
@@ -24,7 +22,9 @@
                 <div style="height: 90px">
                     <strong>Reparto:</strong> <br class="mt-2 mb-2" />
                     {% for artista in artistas %}
-                        <p>{{artista.artista}}</p>
+                        {% if artista.pelicula_id == pelicula.id %}
+                            <p>{{artista.artista}}</p>
+                        {% endif %}
                     {% endfor %} 
                 </div>
             </div>

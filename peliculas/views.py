@@ -92,6 +92,7 @@ def edit2(request):
    
     return render(request, 'peliculas/edit2.html', { "edit_form" : edit_form })
 
+
 def index_administracion(request):
     variable = 'test variable'
     return render(request,'peliculas/administracion/index_administracion.html',
@@ -106,6 +107,7 @@ def peliculas_index(request):
 """
     CRUD generos
 """
+
 def generos_index(request):
     #queryset
     generos = Generos.objects.all()

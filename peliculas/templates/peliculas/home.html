@@ -23,9 +23,13 @@
                         <div class="card-body">
                             <div class="row">
                                 {% for pelicula in peliculas %}
-                                    <div class="col-sm-3">
-                                        {% include "./edit-pelicula.html" %}
-                                    </div>
+                                    {%if pelicula.genero_id == generos.id%}
+                                        <div class="col-sm-3">
+                                            <p>Id genero{{genero.id}}</p>
+                                            {% include "./edit-pelicula.html" %}
+                                        
+                                        </div>
+                                    {%endif%}
                                 {% endfor %}
                             </div>
                         <br>

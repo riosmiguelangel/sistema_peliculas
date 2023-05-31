@@ -1,9 +1,13 @@
-{% extends 'peliculas/base.html' %}
+{% extends 'peliculas/administracion/base_administracion.html' %}
 
 {% block title %}Artistas{% endblock%}
 
 {% block content %}
 {% load static %}
+
+
+
+
 <p class="text-2xl">Artistas de peliculas</p>
 <ol class="breadcrumb mb-4">
     {% comment %} <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li> {% endcomment %}
@@ -83,7 +87,7 @@
         </nav>
     </div>
     <div class="card-footer text-muted">
-        Footer
+        {% comment %} Footer {% endcomment %}
     </div>
 </div>
 

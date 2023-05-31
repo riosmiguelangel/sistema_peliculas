@@ -23,5 +23,5 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('peliculas/', include('peliculas.urls'),)
+    path('peliculas/', include('peliculas.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

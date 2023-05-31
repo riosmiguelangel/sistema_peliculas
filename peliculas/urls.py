@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,re_path,include
 from . import views
 from . views import PeliculasListView
 from . views import PeliculasHomeListView
@@ -17,7 +17,7 @@ urlpatterns = [
     # path('listar_peliculas', views.listar_peliculas, name="listar_peliculas"),
     # path('alta_pelicula', views.alta_pelicula, name="alta_pelicula"),
 
-
+    path('administracion/index_administracion', views.index_administracion,name='index_administracion'),
     path('generos/index', views.generos_index,name='generos_index'),
     path('generos/nuevo', views.generos_nuevo,name='generos_nuevo'),
     path('generos/editar/<int:id_genero>', views.generos_editar,name='generos_editar'),
