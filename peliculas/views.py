@@ -5,6 +5,8 @@ from peliculas.models import Peliculas
 from peliculas.models import Generos
 from peliculas.models import Artistas
 from peliculas.models import Elenco
+from peliculas.models import Plataformas
+from peliculas.models import Donde_ver_pelicula
 from django.views.generic import ListView
 
 from sistema_peliculas.forms import EditForm, GeneroForm, ArtistasForm
@@ -19,22 +21,7 @@ class PeliculasListView(ListView):
     queryset = Peliculas.objects.all()
     ordering = ['titulo']
     paginate_by = 6
-    # pelicula.artistas.all()
-    # queryset= Peliculas.artistas
-    
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
-    
-# Class CategoriaListView(ListView):
-#     model = Categoria
-#     context_object_name = 'categorias'
-#     template_name= 'administracion/categorias/index.html'
-#     queryset= Categoria.objects.filter(baja=False)
-#     ordering = ['nombre']
-#     paginate_by = 6
-    
+   
 
 class PeliculasHomeListView(ListView):
     model = Peliculas
@@ -46,16 +33,17 @@ class PeliculasHomeListView(ListView):
 
 def home_show(request):
     peliculas = Peliculas.objects.all()
-    # artistas = Artistas.objects.all()
+    plataformas = Plataformas.objects.all()
     artistas = Elenco.objects.all()
     
-    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas})
+    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas})
 
 def home_peliculas(request):
     peliculas = Peliculas.objects.all()
     artistas = Elenco.objects.all()
+    plataformas = Donde_ver_pelicula.objects.all()
     
-    return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas})
+    return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas})
 
 def create(request):
     generos = Generos.objects.all(),
@@ -76,10 +64,8 @@ def edit2(request):
            pelicula.estreno = edit_form.cleaned_data["estreno"]
            pelicula.resumen = edit_form.cleaned_data["resumen"]
            pelicula.director = edit_form.cleaned_data["director"]
-        #    pelicula.id_artista1 = edit_form.cleaned_data["id_artista1"]
-        #    pelicula.id_artista2 = edit_form.cleaned_data["id_artista2"]
-        #    pelicula.id_artista3 = edit_form.cleaned_data["id_artista3"]
            pelicula.portada = edit_form.cleaned_data["portada"]
+
 
            pelicula.save()
             
@@ -95,13 +81,26 @@ def edit2(request):
 
 def index_administracion(request):
     variable = 'test variable'
-    return render(request,'peliculas/administracion/index_administracion.html',
-                  {'variable':variable})
+    return render(request,'peliculas/administracion/index_administracion.html',{'variable':variable})
 
 def peliculas_index(request):
     #queryset
     peliculas = Peliculas.objects.all()
     return render(request,'peliculas/peliculas_index.html',{'peliculas':peliculas})
+
+
+def detalle_pelicula(request):
+    #queryset
+    # peliculas = Peliculas.objects.all()
+    # return render(request,'peliculas/detalle_pelicula.html',{'peliculas':peliculas})
+
+    try:
+        pelicula = Peliculas.objects.get(pk=id)
+    except Peliculas.DoesNotExist:
+        return render(request,'administracion/404_admin.html')    
+   
+    return render(request,'peliculas/detalle_pelicula.html',{'pelicula':pelicula})
+
 
 
 """

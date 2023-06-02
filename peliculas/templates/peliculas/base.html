@@ -22,7 +22,10 @@
     <link href="{% static '/css/infoPeliculas.css' %}" rel="stylesheet">
 
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    {% block css %}{% endblock css %}
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -47,6 +50,9 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        {% comment %} <li class="nav-item">
+                            <a class="nav-link text-white " href="{% url 'detalle_pelicula' %}">Detalle</a>
+                        </li> {% endcomment %}
                         <li class="nav-item">
                             <a class="nav-link text-white " href="{% url 'home' %}">Ingreso</a>
                         </li>
@@ -72,5 +78,6 @@
             {% block content %}{% endblock  %}
         </main>
     </div>
+    {% block javascript %}{% endblock javascript %}
 </body>
 </html>

@@ -2,7 +2,8 @@
 <div class="container">
     <div class="card ">
         <div class="contenedor">
-            <img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
+            {% comment %} <a href="{% url 'detalle_pelicula' %}"> {% endcomment %}
+                <img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
                 class="card-img-top image imagen_p" style="width:100%;min-height:350px">
             <div class="middle">
                 <div class="texto">
@@ -26,22 +27,37 @@
                         <p>{{artista.artista}}</p>
                     {% endif %}
                 {% endfor %} 
-            {% comment %} <a href=""> {{peliculas_list.id_artista1.nombre}} </a> <br class="mt-2 mb-2" />
-            {{peliculas_list.id_artista2.nombre}}</a> <br class="mt-2 mb-2" /> {% endcomment %}
+                <hr class="mt-2 mb-2"/>
+                    {% for plataforma in plataformas %}
+                        {% if plataforma.pelicula_id == pelicula.id %}
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <a href="{% url 'home' %}"><img
+                                        src="{% static '/' %}{{plataforma.plataforma.icono}}"></a>
+                                    {% comment %} <p>{{plataforma.icono}}</p>    {% endcomment %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %} 
+                {% comment %} {% for plataforma in plataformas %}
+                    {% if plataforma.pelicula_id == pelicula.id %}
+                        <p>{{plataforma.plataforma}}</p>
+                    {% endif %}
+                {% endfor %}  {% endcomment %}
             </div>            
 
             <hr class="mt-2 mb-2" />
-            <div class="row">
+            {% comment %} <div class="row">
                 <div class="col-sm-4"> </div>
-                <div class="col-sm-4">
-                    <a href="{% url 'home' %}"><img
-                        src="{% static '/imagenes/borrar.png' %}"></a>    
-                </div>
+                    <div class="col-sm-4">
+                        <a href="{% url 'home' %}"><img
+                            src="{% static '/imagenes/borrar.png' %}"></a>    
+                    </div>
                 <div class="col-sm-4">
                     <a href="{% url 'edit2' %}"><img
-                            src="{% static '/imagenes/editar.jpg' %}"></a>
+                            src="{% static '/imagenes/editar.png' %}"></a>
                 </div>
-            </div> 
+            </div>  {% endcomment %}
         </div>
     </div>
 </div>

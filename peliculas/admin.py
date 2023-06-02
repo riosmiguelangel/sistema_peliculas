@@ -6,10 +6,14 @@ from .models import Generos
 from .models import Artistas
 from .models import Elenco
 from .models import PeliculasAdmin
+from .models import Donde_ver_pelicula
+from .models import Plataformas
 admin.site.register(Artistas)
 admin.site.register(Peliculas,PeliculasAdmin)
 admin.site.register(Generos)
 admin.site.register(Elenco)
+admin.site.register(Donde_ver_pelicula)
+admin.site.register(Plataformas)
 
 
 class ArtistasAdmin(admin.ModelAdmin):

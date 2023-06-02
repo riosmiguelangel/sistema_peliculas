@@ -11,7 +11,14 @@ class Generos(models.Model):
     nombre = models.CharField(max_length=150,verbose_name='Nombre')    
 
     def __str__(self):
-        return self.nombre, self.id
+        return self.nombre
+    
+class Plataformas(models.Model):
+    nombre = models.CharField(max_length=150,verbose_name='Nombre')    
+    icono = models.ImageField(upload_to='imagenes/',null=True,verbose_name='Portada')
+
+    def __str__(self):
+        return self.nombre
 
 class Peliculas(models.Model):
     titulo = models.CharField(max_length=128, verbose_name="Titulo")
@@ -21,6 +28,7 @@ class Peliculas(models.Model):
     artistas = models.ManyToManyField(Artistas,through='Elenco') 
     portada = models.ImageField(upload_to='imagenes/',null=True,verbose_name='Portada')
     resumen = models.TextField(null=True,verbose_name='Resumen')
+    plataformas = models.ManyToManyField(Plataformas,through='Donde_ver_pelicula') 
 
     def __str__(self):
         return self.titulo
@@ -32,11 +40,23 @@ class Elenco(models.Model):
     def __str__(self):
         return self.artista.nombre
 
+class Donde_ver_pelicula(models.Model):
+    pelicula = models.ForeignKey(Peliculas,on_delete=models.CASCADE)
+    plataforma = models.ForeignKey(Plataformas,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.plataforma.nombre
+
+
 class ElencoInLine(admin.TabularInline):
     model = Elenco
-    
+
+
+class Donde_ver_peliculaInLine(admin.TabularInline):
+    model = Donde_ver_pelicula
 
 class PeliculasAdmin(admin.ModelAdmin):
     inlines = [
         ElencoInLine,
+        Donde_ver_peliculaInLine,
     ]
