@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
-from peliculas import views
+
 
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('peliculas/', include('peliculas.urls')),
- 
+    path('peliculas/',include('peliculas.urls')),
+    path('administracion/',include('administracion.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

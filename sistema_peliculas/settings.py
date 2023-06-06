@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'peliculas',
+    'administracion',
     'crispy_forms',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'sistema_peliculas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,6 +76,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'sistema_peliculas.wsgi.application'
 
@@ -140,12 +142,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+#El debug esta en true, busque el directorio static dentro de las applicacion
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'peliculas/static'),)
+
+#El debug true, buscar un directorio static dentro del proyecto
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+#esto se genera en producción y es la que deberemos 
+#crear y django ira a buscar ahi 
+#python manage.py collectstatic
+STATIC_ROOT = BASE_DIR / 'static_root'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -153,9 +163,11 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'peliculas/static'),)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #donde vamos a ir guardar los archivos medias debug
-MEDIA_URL = "/imagenes/"
+MEDIA_URL = "/media/"
 #media para produccion
-MEDIA_ROOT = os.path.join(BASE_DIR,'imagenes')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+
 
 #Configuracion para el envio de email por medio de GMAIL
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -166,3 +178,5 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 # Clave generada desde la configuracion de Google
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
+
+
