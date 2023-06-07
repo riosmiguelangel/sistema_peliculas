@@ -1,0 +1,53 @@
+{% extends "peliculas/base.html" %}
+
+{% block title %}Mis Peliculas{% endblock title %}
+{% load static %}
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-11">
+                <div class="card">
+                    <div class="card-header bg-blue-400">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-2xl text-white">Mis Películas</p>
+                            </div>
+                             <div class="col">
+                                <a name="" id="" class="btn bg-gray-500 text-white float-right" href="{% url 'create' %}" role="button">+ Agregar a Mi Lista</a>  
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="card ">
+                        <div class="card-body">
+                            <div class="row"> 
+                                {% for ver_plataforma in ver_plataformas %}
+                                    {% comment %} {% if plataforma.pelicula_id == pelicula.id %} {% endcomment %}
+                                        <div class="col-sm-1">
+                                            
+                                            <a href="{% url 'home' %}"><img
+                                            src="{% static '/' %}{{ver_plataforma.icono}}" width="100" height="100"></a>
+                                        </div>
+                                    {% comment %} {% endif %} {% endcomment %}
+                                {% endfor %}
+                            </div>  
+                        </div>     
+                    </div>
+
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div class="row"> 
+                                {% for pelicula in peliculas %}
+                                    <div class="col-sm-3">
+                                        {% include "./edit-pelicula.html" %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        <br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endblock content %}

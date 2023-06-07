@@ -1,0 +1,102 @@
+{% extends 'administracion/base_administracion.html' %}
+
+{% block title %}Peliculas{% endblock%}
+
+{% block content %}
+{% load static %}
+<p class="text-2xl">Peliculas</p>
+<ol class="breadcrumb mb-4">
+    {% comment %} <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li> {% endcomment %}
+    <li class="breadcrumb-item"><a href="{% url 'home' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Peliculas</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        {% comment %} <h3>Filtros</h3> {% endcomment %}
+    </div>
+    <div class="card-body">
+        <form action="">
+            <div class="row">
+                <div class="col-3">
+                    <div class="md-form mb-0">
+                        <label for="name" class="">Titulo</label>
+                        
+                        <input type="text" 
+                              id="nombre" 
+                              name="nombre"
+                              placeholder="Ingrese titulo" 
+                              class="form-control">
+                    </div>
+                </div>
+                <div class="col-3 ">
+                    <button class="btn btn-primary mt-4">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-body">
+        <a name="" id="" class="btn btn-success" href="{% url 'peliculas_nueva' %}" role="button"> <i class="fa-solid fa-circle-plus"></i>Nueva</a>
+        <!-- bs5-table-defaul -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titulo</th>
+                    <th>Estreno</th>
+                    <th>Portada<th>
+                    <th>Id_director<th>    
+                    <th>Id_genero<th>
+                    <th>Resumen<th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for pelicula in peliculas %}
+                    <tr>
+                        <td>{{pelicula.id}}</td>
+                        <td>{{pelicula.titulo}}</td>
+                        <td>{{pelicula.estreno}}</td>
+                        <td>{{pelicula.portada}}</td>
+                        <td>{{pelicula.resumen}}</td>
+                        <td>{{pelicula.director_id}}</td>
+                        <td>{{pelicula.genero_id}}</td>
+                        <td>
+                            <a href="{% url 'generos_editar' genero.id %}" title="Editar" class="btn btn-warning"><img
+                                src="{% static '/imagenes/editar.png' %}" width="30px"></i></a>
+                            <a href="{% url 'generos_eliminar' genero.id %}" title="Eliminar" class="btn btn-danger"><img
+                                src="{% static '/imagenes/borrar.png' %}" width="30px"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Ant.</a></li>
+                {% endif %}
+        
+                <li class="page-item">
+                    <a class="page-link">{{ page_obj.number }}</a>
+                </li>
+        
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Sig.</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    {% comment %} <div class="card-footer text-muted">
+        Footer
+    </div> {% endcomment %}
+</div>
+
+{% endblock %}
+    
