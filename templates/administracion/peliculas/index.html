@@ -65,9 +65,9 @@
                         <td>{{pelicula.director_id}}</td>
                         <td>{{pelicula.genero_id}}</td>
                         <td>
-                            <a href="{% url 'generos_editar' genero.id %}" title="Editar" class="btn btn-warning"><img
+                            <a href="{% url 'peliculas_editar' pelicula.id %}" title="Editar" class="btn btn-warning"><img
                                 src="{% static '/imagenes/editar.png' %}" width="30px"></i></a>
-                            <a href="{% url 'generos_eliminar' genero.id %}" title="Eliminar" class="btn btn-danger"><img
+                            <a href="{% url 'peliculas_eliminar' pelicula.id %}" title="Eliminar" class="btn btn-danger"><img
                                 src="{% static '/imagenes/borrar.png' %}" width="30px"></a>
                         </td>
                     </tr>

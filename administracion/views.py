@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-
+@login_required
 def index_administracion(request):
     variable = 'test variable'
     return render(request,'administracion/index_administracion.html',{'variable':variable})
@@ -24,12 +24,13 @@ def index_administracion(request):
 """
     CRUD generos
 """
-
+@login_required
 def generos_index(request):
     #queryset
     generos = Genero.objects.all()
     return render(request,'administracion/generos/index.html',{'generos': generos})
 
+@login_required
 def generos_nuevo(request):
     if(request.method=='POST'):
         formulario = GeneroForm(request.POST)
@@ -40,6 +41,7 @@ def generos_nuevo(request):
         formulario = GeneroForm()
     return render(request,'administracion/generos/nuevo.html',{'form':formulario})
 
+@login_required
 def generos_editar(request,id_genero):
     try:
         genero = Genero.objects.get(pk=id_genero)
@@ -55,6 +57,7 @@ def generos_editar(request,id_genero):
         formulario = GeneroForm(instance=genero)
     return render(request,'administracion/generos/editar.html',{'form':formulario})
 
+@login_required
 def generos_eliminar(request,id_genero):
     try:
         genero = Genero.objects.get(pk=id_genero)
@@ -66,11 +69,14 @@ def generos_eliminar(request,id_genero):
 """
     CRUD artistas
 """
+
+@login_required
 def artistas_index(request):
     #queryset
     artistas = Artista.objects.all()
     return render(request,'administracion/artistas/index.html',{'artistas': artistas})
 
+@login_required
 def artistas_nuevo(request):
     if(request.method=='POST'):
         formulario = ArtistasForm(request.POST)
@@ -81,6 +87,7 @@ def artistas_nuevo(request):
         formulario = ArtistasForm()
     return render(request,'administracion/artistas/nuevo.html',{'form':formulario})
 
+@login_required
 def artistas_editar(request,id_artista):
     try:
         artista = Artista.objects.get(pk=id_artista)
@@ -96,6 +103,7 @@ def artistas_editar(request,id_artista):
         formulario = ArtistasForm(instance=artista)
     return render(request,'administracion/artistas/editar.html',{'form':formulario})
 
+@login_required
 def artistas_eliminar(request,id_artista):
     try:
         artista = Artista.objects.get(pk=id_artista)
@@ -107,11 +115,13 @@ def artistas_eliminar(request,id_artista):
 """
     CRUD peliculas
 """
+@login_required
 def peliculas_index(request):
     #queryset
     peliculas = Pelicula.objects.all()
     return render(request,'administracion/peliculas/index.html',{'peliculas': peliculas})
 
+@login_required
 def peliculas_nueva(request):
     if(request.method=='POST'):
         formulario = PeliculaForm(request.POST,request.FILES)
@@ -122,6 +132,7 @@ def peliculas_nueva(request):
         formulario = PeliculaForm()
     return render(request,'administracion/peliculas/nueva.html',{'form':formulario})
 
+@login_required
 def peliculas_editar(request,id_pelicula):
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
@@ -137,6 +148,7 @@ def peliculas_editar(request,id_pelicula):
         formulario = PeliculaForm(instance=pelicula)
     return render(request,'administracion/peliculas/editar.html',{'form':formulario})
 
+@login_required
 def peliculas_eliminar(request,id_pelicula):
     try:
        pelicula = Pelicula.objects.get(pk=id_pelicula)

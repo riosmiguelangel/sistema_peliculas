@@ -61,3 +61,4 @@ class PeliculasAdmin(admin.ModelAdmin):
         ElencoInLine,
         Donde_ver_peliculaInLine,
     ]
+
