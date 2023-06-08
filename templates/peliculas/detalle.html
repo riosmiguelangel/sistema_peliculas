@@ -29,8 +29,22 @@
                         <div class="col-sm-4">
                             <p class="text-4xl">{{pelicula.titulo}}({{pelicula.estreno }})</p>
                             <hr class="mt-2 mb-2" />
+                            <p class="text-2xl">{{pelicula.genero}}</p>
+                            <hr class="mt-2 mb-2" /> 
                             <strong>Director:</strong> <a href="">{{pelicula.director}}</a>
                             <hr class="mt-2 mb-2" />
+                            
+                        <div style="height: 90px">
+                            <strong>Reparto:</strong> <br class="mt-2 mb-2" />
+                            {% for artista in artistas %}
+                                {% if artista.pelicula_id == pelicula.id %}
+                                    <p>{{artista.artista}}</p>
+                                {% endif %}
+                            {% endfor %} 
+                            <hr class="mt-2 mb-2"/>
+                        </div>            
+                        <hr class="mt-2 mb-2" />
+                                            
                             <div>
                                 <strong>Resumen: </strong> {{pelicula.resumen}}
                             </div>
