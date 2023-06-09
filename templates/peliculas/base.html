@@ -32,52 +32,28 @@
             <div class="container">
 
                 <a class="navbar-brand" href="">
+            {% if perms.administracion %}
+                    <a href="{% url 'index_administracion' %}" class="nav-link px-2 link-dark">Administración</a>
+            {% endif %}
+        </ul>
+        <div class="col-md-3 text-end">
+            {% if user.is_authenticated %}
+                {% comment %} <p>Bienvenido\a, {{ user.username }}.</p> {% endcomment %}
+                <p type="text" style="display: inline" class="bienvenido">Bienvenido\a, {{ user.username }}.</p>
+                <a type="text" style="display: inline" href="{% url 'home' %}" class="password">Cambiar password</a>
+                <a type="button"  href="{% url 'logout' %}" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
+            {% else %}
+                <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
+                <a type="button" href="{% url 'registrarse' %}" class="btn btn-outline-primary me-2">Registrarse</a>
+            {% endif %}
                     
-                    <p class="float-right"> <img src="{% static '/imagenes/logo.png' %}" style="width:37px"
-                        class="float-left" alt="logo"> &nbsp PELICULAS </p>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                &nbsp   
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        {% comment %} <li class="nav-item">
-                            <a class="nav-link text-white " href="{% url 'detalle_pelicula' %}">Detalle</a>
-                        </li> {% endcomment %}
-                        <li class="nav-item">
-                            <a class="nav-link text-white " href="{% url 'home' %}">Ingreso</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white " href="">Registro</a>
-                        </li>
-                        <li class="nav-item">
-                            {% comment %} <a class="nav-link text-white " href="{% url 'administracion' %}">Administrar</a> {% endcomment %}
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            </a>
-                        </li>
-                    </ul>
-                    <a href="">
-                        <img src="{% static 'imagenes/search.png' %}" style="width:37px" class="float-right"> 
-                    </a>
-                </div>
-            </div>
+        </div>
         </nav>
 
         <main class="py-4">
             {% block content %}{% endblock  %}
         </main>
-    </div>
+    </div> 
     {% block javascript %}{% endblock javascript %}
 </body>
 </html>

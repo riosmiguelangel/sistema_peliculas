@@ -20,9 +20,11 @@ from django.urls.conf import include
 
 from django.conf.urls.static import static
 from django.conf import settings
+from administracion.admin import sitio_admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('adminoriginal/', admin.site.urls),
+    path('admin/', sitio_admin.urls),
     path('peliculas/',include('peliculas.urls')),
     path('administracion/',include('administracion.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

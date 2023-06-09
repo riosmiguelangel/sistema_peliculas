@@ -10,8 +10,12 @@ from administracion.models import Donde_ver_pelicula
 from django.views.generic import ListView
 
 from administracion.forms import EditForm
+from peliculas.form import RegistrarUsuarioForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth import authenticate, login, logout
+
 
 
 
@@ -39,6 +43,29 @@ def home_show(request):
     artistas = Elenco.objects.all()
     
     return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas})
+
+def pelicula_registrarse(request):
+    if request.method == 'POST':
+        form = RegistrarUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            messages.success(
+                request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
+            return redirect('login')
+    else:
+        form = RegistrarUsuarioForm()
+    return render(request, 'peliculas/registrarse.html', {'form': form, 'title': 'registrese aquí'})
+
+class peliculas_LogoutView(LogoutView):
+    # next_page = 'inicio'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
+        return response
+    
 
 def home_peliculas(request):
     peliculas = Pelicula.objects.all()
