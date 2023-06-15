@@ -3,9 +3,15 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.home_show, name="welcome"),
-    path('home', views.home_peliculas, name="home"),
-    path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
+    path('peliculas_index', views.peliculas_index, name="peliculas_index"),
+    # path('', views.home_show, name="welcome"),
+    path('', views.home_peliculas, name="home"),
+    path('create', views.create, name="create"),
+     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
+
+    path('edit', views.edit, name="edit"),
+    # path('detalle_pelicula/<int:id_pelicula>', views.detalle_pelicula, name="detalle_pelicula"),
+    
 
       #autenticacion
     path('registrarse', views.pelicula_registrarse, name='registrarse'),

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'djangorestframework==3.14.0'
     'peliculas',
     'administracion',
+    # 'djangorestframework',
     'crispy_forms',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

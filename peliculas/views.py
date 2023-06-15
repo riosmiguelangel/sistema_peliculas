@@ -5,6 +5,11 @@ from administracion.models import Pelicula
 from administracion.models import Elenco
 from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
+from administracion.models import Calificacion
+from django.contrib.auth.models import User
+
+from administracion.forms import CalificacionForm
+
 from django.views.generic import ListView
 
 from peliculas.form import RegistrarUsuarioForm
@@ -89,6 +94,8 @@ def detalle_pelicula(request):
 def detalle(request,id_pelicula):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()
+    puntajes = Calificacion.objects.all()
+    # usuario = User.objects()
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
         
@@ -97,5 +104,17 @@ def detalle(request,id_pelicula):
     
     
     
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas})
+    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'puntajes': puntajes})
 
+"""
+Calificacion estresllas
+"""
+def calificar(request):
+    if(request.method=='POST'):
+        formulario = CalificacionForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('home')
+    else:
+        formulario = CalificacionForm()
+    return render(request,'administracion/generos/nuevo.html',{'form':formulario})

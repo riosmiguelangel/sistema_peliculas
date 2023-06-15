@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib import admin
+from django.contrib.auth.models import User
 
 class Artista(models.Model):
     nombre = models.CharField(max_length=100,verbose_name='Nombre')
@@ -62,3 +63,13 @@ class PeliculasAdmin(admin.ModelAdmin):
         Donde_ver_peliculaInLine,
     ]
 
+
+class Calificacion(models.Model):
+    pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE)
+    puntaje = models.IntegerField(max_length=1, verbose_name="puntaje")
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.usuario, self.puntaje,self.pelicula
+    
+    

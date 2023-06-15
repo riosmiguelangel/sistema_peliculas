@@ -48,9 +48,10 @@
                     <th>Titulo</th>
                     <th>Estreno</th>
                     <th>Portada<th>
-                    <th>Id_director<th>    
-                    <th>Id_genero<th>
-                    <th>Resumen<th>
+                    <th>Resumen<th>   
+                    {% comment %} <th>Id_director<th>    
+                    <th>Id_genero<th> {% endcomment %}
+                    
                     
                 </tr>
             </thead>
@@ -62,8 +63,8 @@
                         <td>{{pelicula.estreno}}</td>
                         <td>{{pelicula.portada}}</td>
                         <td>{{pelicula.resumen}}</td>
-                        <td>{{pelicula.director_id}}</td>
-                        <td>{{pelicula.genero_id}}</td>
+                        {% comment %} <td>{{pelicula.director_id}}</td>
+                        <td>{{pelicula.genero_id}}</td> {% endcomment %}
                         <td>
                             <a href="{% url 'peliculas/editar' pelicula.id %}" title="Editar" class="btn btn-warning"><img
                                 src="{% static '/imagenes/editar.png' %}" width="30px"></i></a>
