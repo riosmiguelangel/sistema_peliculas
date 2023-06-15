@@ -70,6 +70,6 @@ class Calificacion(models.Model):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.usuario, self.puntaje
+        return self.usuario, self.puntaje,self.pelicula
     
     

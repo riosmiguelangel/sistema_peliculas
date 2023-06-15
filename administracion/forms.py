@@ -1,6 +1,7 @@
 from xml.dom import ValidationErr
 from django import forms
 from .models import Genero, Artista,Pelicula,Calificacion
+from django.contrib.auth.models import User
 from PIL import Image
 
 from crispy_forms.helper import FormHelper
@@ -35,29 +36,6 @@ class EditForm(forms.Form):
         widget=forms.Select(attrs={'class':'form-control'}),
         initial='Seleccione una opcion'
     )
-
-    # artista1 = forms.ModelChoiceField(
-    #     label='Protagonista 1',
-    #     queryset=Artistas.objects.all(),
-    #     widget=forms.Select(attrs={'class':'form-control'}),
-    #     initial='Seleccione una opcion'
-    # )
-    
-
-    # artista2 = forms.ModelChoiceField(
-    #     label='Protagonista 2',
-    #     queryset=Artistas.objects.all(),
-    #     widget=forms.Select(attrs={'class':'form-control'}),
-    #     initial='Seleccione una opcion'
-    # )
-   
-    # artista3 = forms.ModelChoiceField(
-    #     label='Protagonista 3',
-    #     queryset=Artistas.objects.all(),
-    #     widget=forms.Select(attrs={'class':'form-control'}), 
-    #     initial='Seleccione una opcion'
-    # )
-
 
     resumen = forms.CharField(
         label='Resumen',
@@ -216,21 +194,18 @@ class ArtistasForm(forms.ModelForm):
 
 #-- Calificacion estrellas --
 class CalificacionForm(forms.ModelForm):
-    # nombre = forms.CharField(error_messages={'required':'Hello! no te olvide de mi!'})
-
-    # def clean_nombre(self):
-    #     pass
-    
+    puntaje = forms.IntegerField(error_messages={'required':'Hello! no te olvide de mi!'})
+    # usuario = forms.ModelChoiceField(queryset=User.objects.all())
     class Meta:
         model=Calificacion
-        fields=['puntaje']
+        fields=['puntaje','pelicula','usuario']
 
-        widgets = {
-            'puntaje' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese la calificacion'})
-        }
-        error_messages = {
-            'puntaje' :{
-                'required':'No te olvides de mi!'
-            }
-        }
+        # widgets = {
+        #     'puntaje' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese la calificacion'})
+        # }
+        # error_messages = {
+        #     'puntaje' :{
+        #         'required':'No te olvides de mi!'
+        #     }
+        # }
 

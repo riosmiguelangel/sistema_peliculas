@@ -157,18 +157,7 @@ def peliculas_eliminar(request,id_pelicula):
     pelicula.delete()
     return redirect('peliculas_index')
 
-"""
-Calificacion estresllas
-"""
-# def calificar(request):
-#     if(request.method=='POST'):
-#         formulario = CalificacionForm(request.POST)
-#         if formulario.is_valid():
-#             formulario.save()
-#             return redirect('home')
-#     else:
-#         formulario = CalificacionForm()
-#     return render(request,'administracion/generos/nuevo.html',{'form':formulario})
+
 
 
 
