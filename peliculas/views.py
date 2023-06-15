@@ -7,6 +7,7 @@ from administracion.models import Artista
 from administracion.models import Elenco
 from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
+from administracion.models import Calificacion
 from django.views.generic import ListView
 
 from administracion.forms import EditForm
@@ -129,6 +130,7 @@ def detalle_pelicula(request):
 def detalle(request,id_pelicula):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()
+    puntajes = Calificacion.objects.all()
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
         
@@ -137,5 +139,5 @@ def detalle(request,id_pelicula):
     
     
     
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas})
+    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'puntajes': puntajes})
 

@@ -7,9 +7,9 @@ from administracion.models import Artista
 from administracion.models import Elenco
 from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
+from administracion.models import Calificacion
 
-
-from administracion.forms import GeneroForm, ArtistasForm, PeliculaForm
+from administracion.forms import GeneroForm, ArtistasForm, PeliculaForm, CalificacionForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -120,8 +120,8 @@ def peliculas_index(request):
     #queryset
     peliculas = Pelicula.objects.all()
     return render(request,'administracion/peliculas/index.html',{'peliculas': peliculas})
+    
 
-@login_required
 def peliculas_nueva(request):
     if(request.method=='POST'):
         formulario = PeliculaForm(request.POST,request.FILES)
@@ -156,6 +156,19 @@ def peliculas_eliminar(request,id_pelicula):
         return render(request,'administracion/404_admin.html')    
     pelicula.delete()
     return redirect('peliculas_index')
+
+"""
+Calificacion estresllas
+"""
+# def calificar(request):
+#     if(request.method=='POST'):
+#         formulario = CalificacionForm(request.POST)
+#         if formulario.is_valid():
+#             formulario.save()
+#             return redirect('home')
+#     else:
+#         formulario = CalificacionForm()
+#     return render(request,'administracion/generos/nuevo.html',{'form':formulario})
 
 
 

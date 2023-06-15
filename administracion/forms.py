@@ -1,6 +1,6 @@
 from xml.dom import ValidationErr
 from django import forms
-from .models import Genero, Artista,Pelicula
+from .models import Genero, Artista,Pelicula,Calificacion
 from PIL import Image
 
 from crispy_forms.helper import FormHelper
@@ -212,3 +212,25 @@ class ArtistasForm(forms.ModelForm):
                 'required':'No te olvides de mi!'
             }
         }
+
+
+#-- Calificacion estrellas --
+class CalificacionForm(forms.ModelForm):
+    # nombre = forms.CharField(error_messages={'required':'Hello! no te olvide de mi!'})
+
+    # def clean_nombre(self):
+    #     pass
+    
+    class Meta:
+        model=Calificacion
+        fields=['puntaje']
+
+        widgets = {
+            'puntaje' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese la calificacion'})
+        }
+        error_messages = {
+            'puntaje' :{
+                'required':'No te olvides de mi!'
+            }
+        }
+
