@@ -36,11 +36,11 @@
                     <a href="{% url 'index_administracion' %}" class="nav-link px-2 link-dark">Administración</a>
             {% endif %}
         </ul>
-        <div class="col-md-3 text-end">
+        <div style="text-aling:left">
             {% if user.is_authenticated %}
                 {% comment %} <p>Bienvenido\a, {{ user.username }}.</p> {% endcomment %}
-                <p type="text" style="display: inline" class="bienvenido">Bienvenido\a, {{ user.username }}.</p>
-                <a type="text" style="display: inline" href="{% url 'home' %}" class="password">Cambiar password</a>
+                <p type="text" class="bienvenido">Bienvenido\a, {{ user.username }}.</p></div>
+                <a type="text" href="{% url 'password_change' %}" class="texto">Cambiar password</a>
                 <a type="button"  href="{% url 'logout' %}" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
             {% else %}
                 <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
