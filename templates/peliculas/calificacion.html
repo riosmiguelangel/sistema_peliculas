@@ -1,0 +1,12 @@
+{% extends "peliculas/base.html" %}
+
+{% block title %}Mis Peliculas{% endblock title %}
+{% load static %}
+{% block content %}
+<form method="post">
+    {%csrf_token%}
+    {{form}}
+    <button type="submit">Calificar</button>
+
+</form>
+{% endblock content %}

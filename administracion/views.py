@@ -9,7 +9,7 @@ from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
 
-from administracion.forms import GeneroForm, ArtistasForm, PeliculaForm, CalificacionForm
+from administracion.forms import GeneroForm, ArtistasForm, PeliculaForm
 from django.contrib.auth.decorators import login_required
 
 

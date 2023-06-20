@@ -193,12 +193,12 @@ class ArtistasForm(forms.ModelForm):
 
 
 #-- Calificacion estrellas --
-class CalificacionForm(forms.ModelForm):
-    puntaje = forms.IntegerField(error_messages={'required':'Hello! no te olvide de mi!'})
-    # usuario = forms.ModelChoiceField(queryset=User.objects.all())
-    class Meta:
-        model=Calificacion
-        fields=['puntaje','pelicula','usuario']
+# class CalificacionForm(forms.ModelForm):
+#     puntaje = forms.IntegerField(error_messages={'required':'Hello! no te olvide de mi!'})
+#     # usuario = forms.ModelChoiceField(queryset=User.objects.all())
+#     class Meta:
+#         model=Calificacion
+        # fields=['puntaje','pelicula','usuario']
 
         # widgets = {
         #     'puntaje' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese la calificacion'})

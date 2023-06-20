@@ -1,6 +1,11 @@
+<p>id pelicula: {{pelicula.id}}</p>
+<p>id usuario: {{ user.id }}</p>
+{% comment %} <p>id usuario: {{ user.id }}</p> {% endcomment %}
+
+{{form}}
 {% for campo in form %}
     <div class="form-group">
-        <h1>Form peliculas</h1>
+        <h1>Form estrellas</h1>
         <h5 class="card-title">Tu calificacion</h5>
         {% comment %} <label for="">{{campo.label}}</label> {% endcomment %}
         {{campo}}

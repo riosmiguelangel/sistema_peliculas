@@ -1,7 +1,8 @@
 <form action="" method="POST" enctype="multipart/form-data">
   {% csrf_token %}
     <div class="col-12"><br>
-        <div class="card">            <div class="card-body">
+        <div class="card">
+            <div class="card-body">
                 <div class="col-12">
                     <h5 class="card-title">Dejanos tu calificacion</h5>
                     <p>id pelicula: {{pelicula.id}}</p>
@@ -16,8 +17,8 @@
                                     <span class="fas fa-star" style="cursor: pointer;" id="4"></span>
                                     <span class="fas fa-star" style="cursor: pointer;" id="5"></span>
                                 </td>
-                                <td><input type="text" class="calificacion form-control" disabled></td>
-                                <td><button type="submit"  class="ver btn btn-primary" id="boton_calificar">Calificar</button></td>
+                                <td><input type="text" class="calificacion form-control"  id="calificacion" name="calificacion" disabled></td>
+                                <td><input type="submit"  class="ver btn btn-primary" id="boton_calificar" value="Calificar"></td>
                             </tr>
                         </tbody>
                     </table>

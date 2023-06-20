@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from administracion.models import Pelicula, Genero,Artista,Elenco,PeliculasAdmin,Donde_ver_pelicula,Plataforma
+from administracion.models import Pelicula, Genero,Artista,Elenco,PeliculasAdmin,Donde_ver_pelicula,Plataforma, Calificacion
 from django.contrib.auth.models import Group,User
 from django.contrib.auth.admin import GroupAdmin, UserAdmin
 
@@ -41,6 +41,10 @@ class PeliculasAdmin(admin.ModelAdmin):
         Donde_ver_peliculaInLine,
     ]
 
+class CalificacionAdmin(admin.ModelAdmin):
+    list_display = ('id','nombre','puntaje', 'usuario' )
+    list_per_page = 5  
+
 sitio_admin = PersonalizadoAdminSite(name="personalizado")
 sitio_admin.register(Pelicula,PeliculasAdmin)
 sitio_admin.register(Artista)
@@ -48,5 +52,6 @@ sitio_admin.register(Genero)
 sitio_admin.register(Elenco)
 sitio_admin.register(Donde_ver_pelicula)
 sitio_admin.register(Plataforma)
+sitio_admin.register(Calificacion)
 sitio_admin.register(Group, GroupAdmin)
 sitio_admin.register(User,UserAdmin)

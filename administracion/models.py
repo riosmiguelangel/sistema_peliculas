@@ -65,11 +65,11 @@ class PeliculasAdmin(admin.ModelAdmin):
 
 
 class Calificacion(models.Model):
-    pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE)
-    puntaje = models.IntegerField(max_length=1, verbose_name="puntaje")
-    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
+    pelicula = models.IntegerField(verbose_name="pelicula_id")
+    puntaje = models.IntegerField(verbose_name="puntaje")
+    usuario = models.IntegerField(verbose_name="usuario")
 
     def __str__(self):
-        return self.usuario, self.puntaje,self.pelicula
+        return self.puntaje
     
     
