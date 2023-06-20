@@ -10,7 +10,7 @@ from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
 from django.contrib.auth.models import User
 
-from administracion.forms import CalificacionForm
+from peliculas.forms import CalificacionForm
 
 from django.views.generic import ListView
 
@@ -134,27 +134,40 @@ def detalle_pelicula(request):
 def detalle(request,id_pelicula):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()
-    puntajes = Calificacion.objects.all()
-    # usuario = User.objects()
+    #puntajes = Calificacion.objects.all()
+    #usuario = User.objects.all()
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
-        
+        #usuario = User.objects.get(pk=User.id)
+        calificar(request,id_pelicula)
     except Pelicula.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-    
-    
-    
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'puntajes': puntajes})
+
+    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas})
 
 """
 Calificacion estresllas
 """
-def calificar(request):
-    if(request.method=='POST'):
-        formulario = CalificacionForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            return redirect('home')
-    else:
-        formulario = CalificacionForm()
-    return render(request,'administracion/generos/nuevo.html',{'form':formulario})
+# def calificar(request):
+#     if(request.method=='POST'):
+#         formulario = CalificacionForm(request.POST)
+#         if formulario.is_valid():
+#             formulario.save()
+#             return redirect('home')
+#     else:
+#         formulario = CalificacionForm()
+#     return render(request,'administracion/generos/nuevo.html',{'form':formulario})
+def calificar(request,id_pelicula):
+        if(request.method=='POST'):
+            
+            if request.method =="POST":
+                puntos = request.POST["calificacion"]
+                pelicula = request.POST["calificacion"]
+                usuario = request.POST["calificacion"]
+                calificacion = Calificacion(puntaje= puntos, pelicula= id_pelicula)  
+                
+                calificacion.save() 
+            return render(request,'peliculas/detalle.html')
+        else:
+            
+            return render(request,'peliculas/home.html')

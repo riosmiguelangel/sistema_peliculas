@@ -1,5 +1,5 @@
 from django.urls import path,re_path,include
-from . import views
+from .  import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -7,9 +7,11 @@ urlpatterns = [
     # path('', views.home_show, name="welcome"),
     path('', views.home_peliculas, name="home"),
     path('create', views.create, name="create"),
-     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
+    path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
 
     path('edit', views.edit, name="edit"),
+    #path('peliculas/calificacion/', views.calificar, name='calificacion'),
+    #path('peliculas/estrellas/', views.calificar, name='estrellas'),
     # path('detalle_pelicula/<int:id_pelicula>', views.detalle_pelicula, name="detalle_pelicula"),
     
 
