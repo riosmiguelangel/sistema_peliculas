@@ -1,19 +1,15 @@
 from django.urls import path,re_path,include
-from . import views
+from .  import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # path('peliculas_index', views.peliculas_index, name="peliculas_index"),
-    # path('', views.home_show, name="welcome"),
-    path('', views.home_peliculas, name="home"),
-   
+    #path('peliculas_index', views.peliculas_index, name="peliculas_index"),
+    path('', views.home_show, name="welcome"),
+    path('home', views.home_peliculas, name="home"),
     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
+    # path('peliculas/detalle/<int:id_pelicula>/<int:id_usuario>', views.detalle,name='detalle'),
 
-   
-    # path('detalle_pelicula/<int:id_pelicula>', views.detalle_pelicula, name="detalle_pelicula"),
-    
-
-      #autenticacion
+    #autenticacion
     path('registrarse', views.pelicula_registrarse, name='registrarse'),
     # path('cuentas/login', views.cac_login, name='login'),
     # path('cuentas/logout/',
