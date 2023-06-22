@@ -169,4 +169,4 @@ RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
 
 LOGIN_URL ='/accounts/login'
 
-LOGIN_REDIRECT_URL = "peliculas_index"
+LOGIN_REDIRECT_URL = "home"

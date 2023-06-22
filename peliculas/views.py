@@ -46,8 +46,9 @@ def home_show(request):
     peliculas = Pelicula.objects.all()
     plataformas = Plataforma.objects.all()
     artistas = Elenco.objects.all()
+    ver_plataformas = Plataforma.objects.all()
     
-    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas})
+    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas})
 
 def pelicula_registrarse(request):
     if request.method == 'POST':
@@ -64,14 +65,14 @@ def pelicula_registrarse(request):
     return render(request, 'peliculas/registrarse.html', {'form': form, 'title': 'registrese aquí'})
 
 class peliculas_LogoutView(LogoutView):
-    # next_page = 'inicio'
+    next_page = 'welcome'
 
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
         messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
         return response
     
-
+# @login_required
 def home_peliculas(request):
     peliculas = Pelicula.objects.all()
     artistas = Elenco.objects.all()
@@ -80,94 +81,40 @@ def home_peliculas(request):
     
     return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas})
 
-def create(request):
-    generos = Genero.objects.all(),
-    artistas = Artista.objects.all(),
-
-    return render(request, 'peliculas/create.html', {'generos':generos, 'artistas':artistas})
-
-
-def edit(request):
-   
-    if(request.method=='POST'):
-        edit_form = EditForm(request.POST)
-        if(edit_form.is_valid()):  
-           pelicula = Pelicula()
-           
-           pelicula.titulo = edit_form.cleaned_data["titulo"]
-           pelicula.genero = edit_form.cleaned_data["genero"]
-           pelicula.estreno = edit_form.cleaned_data["estreno"]
-           pelicula.resumen = edit_form.cleaned_data["resumen"]
-           pelicula.director = edit_form.cleaned_data["director"]
-           pelicula.portada = edit_form.cleaned_data["portada"]
-
-
-           pelicula.save()
-            
-            # acción para tomar los datos del formulario            
-        else:
-            messages.warning(request,'Por favor revisa los campos')
-            messages.add_message(request, messages.WARNING, 'Revisa los campos')
-    else:
-        edit_form = EditForm()
-   
-    return render(request, 'peliculas/edit.html', { "edit_form" : edit_form })
-
-def peliculas_index(request):
-    #queryset
-    peliculas = Pelicula.objects.all()
-    return render(request,'peliculas/peliculas_index.html',{'peliculas':peliculas})
-
-
-def detalle_pelicula(request):
-    #queryset
-    # peliculas = Peliculas.objects.all()
-    # return render(request,'peliculas/detalle_pelicula.html',{'peliculas':peliculas})
-
-    try:
-        pelicula = Pelicula.objects.get(pk=id)
-    except Pelicula.DoesNotExist:
-        return render(request,'administracion/404_admin.html')    
-   
-    return render(request,'peliculas/detalle_pelicula.html',{'pelicula':pelicula})
-
-def detalle(request,id_pelicula):
+@login_required
+def detalle(request,id_pelicula,id_usuario):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()
     #puntajes = Calificacion.objects.all()
-    #usuario = User.objects.all()
+    #usuario = User.objects.get(User.id)
+    
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
-        #usuario = User.objects.get(pk=User.id)
-        calificar(request,id_pelicula)
+        usuario = User.objects.get(id=id_usuario)
+        #id_usuario= 0
+        #usuario = User.objects.filter(id=id_usuario)
+        calificar(request,id_pelicula,id_usuario)
+        
+
     except Pelicula.DoesNotExist:
         return render(request,'administracion/404_admin.html')
 
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas})
+    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'usuario':usuario})
 
 """
 Calificacion estresllas
 """
-# def calificar(request):
-#     if(request.method=='POST'):
-#         formulario = CalificacionForm(request.POST)
-#         if formulario.is_valid():
-#             formulario.save()
-#             return redirect('home')
-#     else:
-#         formulario = CalificacionForm()
-#     return render(request,'administracion/generos/nuevo.html',{'form':formulario})
-def calificar(request,id_pelicula):
-        if(request.method=='POST'):
-            
-            if request.method =="POST":
-                puntos = request.POST["calificacion"]
-                pelicula = request.POST["calificacion"]
-                usuario = request.POST["calificacion"]
-                calificacion = Calificacion(puntaje= puntos, pelicula= id_pelicula)  
-                
-                calificacion.save() 
-            return render(request,'peliculas/detalle.html')
-        else:
-            
-            return render(request,'peliculas/home.html')
+def calificar(request,id_pelicula,id_usuario):
+    #usuario=id_usuario  
+    if(request.method=='POST'):
+        puntos = request.POST["calificacion"]
+        #pelicula = request.POST["calificacion"]
+        usuario = request.POST["calificacion"]
+        calificacion = Calificacion(puntaje= puntos,pelicula=id_pelicula,usuario=id_usuario)  
+        
+        calificacion.save() 
+        #return redirect('home')
+        return render(request,'peliculas/home.html')
+    else:
+        
+        return render(request,'peliculas/home.html')

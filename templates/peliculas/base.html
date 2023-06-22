@@ -34,16 +34,15 @@
     <div id="app">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <div class="container">
-
-                <a class="navbar-brand" href="">
+                {% comment %} <a class="navbar-brand" href=""> {% endcomment %}
             {% if perms.administracion %}
-                    <a href="{% url 'index_administracion' %}" class="nav-link px-2 link-dark">Administración</a>
+                    <a href="{% url 'index_administracion' %}" class="nav-link px-1 link-dark">Administración</a>
             {% endif %}
         </ul>
-        <div class="col-md-3 text-end">
+        <div class="col-md-5 text-end">
             {% if user.is_authenticated %}
                 {% comment %} <p>Bienvenido\a, {{ user.username }}.</p> {% endcomment %}
-                <p type="text" style="display: inline" class="bienvenido">Bienvenido\a, {{ user.username }}.</p>
+                <p type="text" style="color: white" class="bienvenido">Bienvenido\a, {{ user.username }}.</p>
                 <a type="text" style="display: inline" href="{% url 'home' %}" class="password">Cambiar password</a>
                 <a type="button"  href="{% url 'logout' %}" class="btn btn-outline-primary me-2">Cerrar Sesión</a>
             {% else %}
