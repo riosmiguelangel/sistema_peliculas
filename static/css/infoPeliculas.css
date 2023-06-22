@@ -38,3 +38,38 @@
     font-size: 1em;
     padding: 12px 20px;
   }
+
+  
+t
+table {
+  caption-side: bottom;
+  border-collapse: collapse;
+}
+
+caption {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: #6c757d;
+  text-align: left;
+}
+
+th {
+  text-align: inherit;
+  text-align: -webkit-match-parent;
+}
+
+thead,
+tbody,
+tfoot,
+tr,
+td,
+th {
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+}
+
+label {
+  display: inline-block;
+}
+

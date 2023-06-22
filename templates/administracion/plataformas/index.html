@@ -1,14 +1,14 @@
 {% extends 'administracion/base_administracion.html' %}
 
-{% block title %}Peliculas{% endblock%}
+{% block title %}Plataformas{% endblock%}
 
 {% block content %}
 {% load static %}
-<p class="text-2xl">Peliculas</p>
+<p class="text-2xl">Plataformas peliculas</p>
 <ol class="breadcrumb mb-4">
     {% comment %} <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li> {% endcomment %}
     <li class="breadcrumb-item"><a href="{% url 'home' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Peliculas</li>
+    <li class="breadcrumb-item active">Plataformas</li>
 </ol>
 
 <div class="card">
@@ -20,12 +20,12 @@
             <div class="row">
                 <div class="col-3">
                     <div class="md-form mb-0">
-                        <label for="name" class="">Titulo</label>
+                        <label for="name" class="">Nombre</label>
                         
                         <input type="text" 
                               id="nombre" 
                               name="nombre"
-                              placeholder="Ingrese titulo" 
+                              placeholder="Ingrese el nombre" 
                               class="form-control">
                     </div>
                 </div>
@@ -39,36 +39,28 @@
 <br>
 <div class="card">
     <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'peliculas_nueva' %}" role="button"> <i class="fa-solid fa-circle-plus"></i>Nueva</a>
+        <a name="" id="" class="btn btn-success" href="{% url 'plataformas_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
         <!-- bs5-table-defaul -->
         <table class="table">
             <thead>
-                <tr> 
+                <tr>
                     <th>Id</th>
-                    <th>Titulo</th>
-                    <th>Estreno</th>
-                    <th>Portada<th>
-                    <th>Resumen<th>   
-                    <th>Director<th>    
-                    <th>Genero<th>  
-                    <th>Accion<th>
+                    <th>Nombre</th>
+                    <th>Icono</th>
                 </tr>
             </thead>
             <tbody>
-                {% for pelicula in peliculas %}
+                {% for plataforma in plataformas %}
                     <tr>
-                        <td>{{pelicula.id}}</td>
-                        <td>{{pelicula.titulo}}</td>
-                        <td>{{pelicula.estreno}}</td>
-                        <td>{{pelicula.portada}}</td> 
-                        <td>{{pelicula.resumen}}</td>
-                        <td>{{pelicula.director}}</td>
-                        <td>{{pelicula.genero.nombre}}</td> 
+                        <td>{{plataforma.id}}</td>
+                        <td>{{plataforma.nombre}}</td>
+                        <td>{{plataforma.icono}}</td>
                         <td>
-                            <a href="{% url 'peliculas_editar' pelicula.id%}" title="Editar" class="btn btn-warning"><img
-                                src="{% static '/imagenes/editar.png' %}" width="30px"></i></a>
-                            <a href="{% url 'peliculas_eliminar' pelicula.id %}" title="Eliminar" class="btn btn-danger"><img
-                                src="{% static '/imagenes/borrar.png' %}" width="30px"></a>
+                            <td><a href="{% url 'plataformas_editar' plataforma.id %}" title="Editar" class="btn btn-warning"><img
+                                    src="{% static '/imagenes/editar.png' %}" width="30px"></i></a>
+                                <a href="{% url 'plataformas_eliminar' plataforma.id %}" title="Eliminar" class="btn btn-danger"><img
+                                    src="{% static '/imagenes/borrar.png' %}" width="30px"></a>
+                            </td>
                         </td>
                     </tr>
                 {% endfor %}

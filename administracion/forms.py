@@ -1,6 +1,6 @@
 from xml.dom import ValidationErr
 from django import forms
-from .models import Genero, Artista,Pelicula,Calificacion
+from .models import Genero, Artista,Pelicula,Calificacion,Plataforma
 from django.contrib.auth.models import User
 from PIL import Image
 
@@ -58,9 +58,7 @@ class GeneroForm(forms.ModelForm):
     
     class Meta:
         model=Genero
-        # fields='__all__'
         fields=['nombre']
-        # exclude=('baja',)
         widgets = {
             'nombre' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese un nombre'})
         }
@@ -70,7 +68,14 @@ class GeneroForm(forms.ModelForm):
             }
         }
 
-
+class PlataformaForm(forms.ModelForm):
+    class Meta:
+        model=Plataforma
+        fields=['nombre','icono']
+        widgets = {
+            'nombre' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese un nombre'}),
+            'icono' : forms.FileInput(attrs={'class':'form-control'}),
+        }
 
 class AltaPeliculaForm(forms.Form):
     titulo = forms.CharField(
@@ -156,6 +161,13 @@ class PeliculaForm(forms.ModelForm):
     resumen = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
     )
+
+    director = forms.ModelChoiceField(
+        label='Director',
+        queryset=Artista.objects.all(),
+        widget=forms.Select(attrs={'class':'form-control'}),
+        initial='Seleccione una opcion'
+    )
     """Se utiliza ModelChoiceField para poder realizar un filtrado de lo que
     quiero mostrar en el selector"""
     genero = forms.ModelChoiceField(
@@ -165,10 +177,14 @@ class PeliculaForm(forms.ModelForm):
     portada = forms.ImageField(
          widget=forms.FileInput(attrs={'class':'form-control'})
     )
+
+    Portada_grande = forms.ImageField(
+         widget=forms.FileInput(attrs={'class':'form-control'})
+    )
     
     class Meta:
         model=Pelicula
-        fields=['titulo','estreno','portada','resumen','genero']
+        fields=['titulo','estreno','portada','resumen','genero','director']
 
 
 class ArtistasForm(forms.ModelForm):

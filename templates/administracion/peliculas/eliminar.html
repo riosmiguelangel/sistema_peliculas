@@ -1,0 +1,23 @@
+{% extends 'administracion/base.html' %}
+
+{% block title %}Eliminar pelicula{% endblock%}
+
+{% block content %}
+<h1 class="mt-4"> Peliculas</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'peliculas_index' %}">Administracion</a></li>
+    <li class="breadcrumb-item active">Eliminar pelicula</li>
+</ol>
+
+
+<div class="card">
+    <div class="card-header">Eliminacion de pelicula</div>
+    <div class="card-body">
+        <form method="post">{% csrf_token %}
+            <p>Esta seguro que quiere eliminar la pelicula "{{ object.nombre }}"?</p>
+            <input type="submit" value="Confirmar" class="btn btn-danger">
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

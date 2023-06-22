@@ -11,9 +11,9 @@
 
 
 <div class="card">
-    <div class="card-header">Creacion de pelicula</div>
+    <div class="card-header">Creacion de Pelicula</div>
     <div class="card-body">
-        <form action="" method="post" novalidate>
+        <form action="" method="post" novalidate enctype="multipart/form-data">
             {% csrf_token %}
             {% include 'administracion/peliculas/form.html' %}
         </form>

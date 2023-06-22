@@ -18,4 +18,9 @@ urlpatterns = [
     path('peliculas/nueva', views.peliculas_nueva,name='peliculas_nueva'),
     path('peliculas/editar/<int:id_pelicula>', views.peliculas_editar,name='peliculas_editar'),
     path('peliculas/eliminar/<int:id_pelicula>', views.peliculas_eliminar,name='peliculas_eliminar'),
+
+    path('plataformas/index', views.plataformas_index,name='plataformas_index'),
+    path('plataformas/nueva', views.plataformas_nuevo,name='plataformas_nuevo'),
+    path('plataformas/editar/<int:id_plataforma>', views.plataformas_editar,name='plataformas_editar'),
+    path('plataformas/eliminar/<int:id_plataforma>', views.plataformas_eliminar,name='plataformas_eliminar'),
 ]

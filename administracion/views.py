@@ -9,7 +9,7 @@ from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
 
-from administracion.forms import GeneroForm, ArtistasForm, PeliculaForm
+from administracion.forms import GeneroForm, ArtistasForm, PeliculaForm, PlataformaForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -156,6 +156,51 @@ def peliculas_eliminar(request,id_pelicula):
         return render(request,'administracion/404_admin.html')    
     pelicula.delete()
     return redirect('peliculas_index')
+
+"""
+    CRUD plataformas
+"""
+@login_required
+def plataformas_index(request):
+    #queryset
+    plataformas = Plataforma.objects.all()
+    return render(request,'administracion/plataformas/index.html',{'plataformas': plataformas})
+
+@login_required
+def plataformas_nuevo(request):
+    if(request.method=='POST'):
+        formulario = PlataformaForm(request.POST, request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('plataformas_index')
+    else:
+        formulario = PlataformaForm()
+    return render(request,'administracion/plataformas/nuevo.html',{'form':formulario})
+
+@login_required
+def plataformas_editar(request,id_plataforma):
+    try:
+        plataforma = Plataforma.objects.get(pk=id_plataforma)
+    except Plataforma.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+
+    if(request.method=='POST'):
+        formulario = PlataformaForm(request.POST,instance=plataforma)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('plataformas_index')
+    else:
+        formulario = PlataformaForm(instance=plataforma)
+    return render(request,'administracion/plataformas/editar.html',{'form':formulario})
+
+@login_required
+def plataformas_eliminar(request,id_plataforma):
+    try:
+        plataforma = Plataforma.objects.get(pk=id_plataforma)
+    except Plataforma.DoesNotExist:
+        return render(request,'administracion/404_admin.html')    
+    plataforma.delete()
+    return redirect('plataformas_index')
 
 
 
