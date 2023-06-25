@@ -7,8 +7,7 @@ urlpatterns = [
     path('', views.home_show, name="welcome"),
     path('home', views.home_peliculas, name="home"),
     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
-    # path('peliculas/detalle/<int:id_pelicula>/<int:id_usuario>', views.detalle,name='detalle'),
-
+    
     #autenticacion
     path('registrarse', views.pelicula_registrarse, name='registrarse'),
     # path('cuentas/login', views.cac_login, name='login'),
