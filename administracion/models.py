@@ -72,7 +72,8 @@ class Calificacion(models.Model):
     # usuario = models.IntegerField(verbose_name="usuario")
 
     def __str__(self):
-        return self.puntaje,  self.usuario ,self.pelicula
+        return self.puntaje,self.pelicula,self.usuario
+        #return self.puntaje, User.objects.get(pk=self.user_id),self.pelicula
 
 
     

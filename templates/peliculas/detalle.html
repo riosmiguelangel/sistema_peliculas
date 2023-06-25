@@ -62,23 +62,38 @@
                             {% if plataforma.pelicula_id == pelicula.id %}
                                 <div class="col-sm-1">
                                     <a href="{% url 'home' %}"><img
-                                    src="{% static '/' %}{{plataforma.plataforma.icono}}"></a>
+                                    src="{% static '/' %}{{plataforma.plataforma.icono}} "width="60" height="60" style="border-radius:10px"></a>
                                 </div>
                             {% endif %}
                         {% endfor %}
                     </div>  
                 <hr class="mt-2 mb-2" />
-                <form action="" method="POST" enctype="multipart/form-data">
+                {% for calificacion in calificaciones %}
+                    {% if calificacion.pelicula_id == pelicula.id and calificacion.usuario_id == user.id  %}
+                        <div class="col-sm-5">
+                            <strong>usuario: </strong> {{calificacion.usuario_id}}
+                            <strong>user: </strong> {{user.id}}
+                            <strong>pelicula: </strong> {{calificacion.pelicula_id}}
+                            <strong>calificacion.pelicula: </strong> {{pelicula.id}}
+                        </div>
+                    {% else %}
+                        {% if calificacion.pelicula_id != pelicula.id and calificacion.usuario_id != user.id  %}    
+                            <strong>No hay calificaciones: </strong><hr class="mt-2 mb-2" />
+                        {% comment %} <div class="col-sm-5">
+                            {% include "./estrellas.html" %}
+                        </div> {% endcomment %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                
+
+                {% comment %} <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-12"><br>
                         <div class="card">
                             <div class="card-body">
                                 <div class="col-12">
                                     <h5 class="card-title">Dejanos tu calificacion</h5>
-                                    <p>id pelicula: {{pelicula.id}}</p>
-                                    <p>id usuario: {{ user.id }}</p>
-                                    {% comment %} <input type="hidden" class="calificacion form-control"  id="pelicula_id" name="pelicula_id" value={{pelicula.id}}> {% endcomment %}
-                                    
                                     <table id="tabla_calificacion">
                                         <tbody>
                                             <tr>
@@ -89,9 +104,9 @@
                                                     <span class="fas fa-star" style="cursor: pointer;" id="4"></span>
                                                     <span class="fas fa-star" style="cursor: pointer;" id="5"></span>
                                                 </td>
-                                                <td><input type="text" class="calificacion form-control"  id="calificacion" name="calificacion" ></td>
+                                                <td><input type="hidden" class="calificacion form-control"  id="calificacion" name="calificacion" ></td>
                                                 <td><input type="hidden" class="calificacion form-control"  id="id_usuario" name="id_usuario" value={{user.id}}></td>
-                                                <td><input type="submit"  class="ver btn btn-primary" id="boton_calificar" value="Calificar"></td>
+                                                <td><input type="submit"  class="ver btn btn-primary" id="boton_calificar" value="Calificar"><a href="{% url 'home' %}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -99,8 +114,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
-
+                </form> {% endcomment %}
             </div>
         </div>
     </div>
