@@ -68,26 +68,32 @@
                         {% endfor %}
                     </div>  
                 <hr class="mt-2 mb-2" />
+                
                 {% for calificacion in calificaciones %}
                     {% if calificacion.pelicula_id == pelicula.id and calificacion.usuario_id == user.id  %}
                         <div class="col-sm-5">
-                            <strong>usuario: </strong> {{calificacion.usuario_id}}
+                            {% comment %} <strong>usuario: </strong> {{calificacion.usuario_id}}
                             <strong>user: </strong> {{user.id}}
                             <strong>pelicula: </strong> {{calificacion.pelicula_id}}
                             <strong>calificacion.pelicula: </strong> {{pelicula.id}}
+                            <strong>calificacion.pelicula: </strong> {{calificacion.puntaje}} {% endcomment %}
+                            <input type="number" class="calificacion form-control"  id="calificacion" name="calificacion" value={{calificacion.puntaje}}>
                         </div>
-                    {% else %}
-                        {% if calificacion.pelicula_id != pelicula.id and calificacion.usuario_id != user.id  %}    
+                    {% elif calificacion.pelicula_id == pelicula.id%}
+                    <input type="number" class="calificacion form-control"  id="calificacion" name="calificacion" value={{calificacion.puntaje}}>
+                        {% comment %} {% if calificacion.pelicula_id != pelicula.id and calificacion.usuario_id != user.id  %}     {% endcomment %}
                             <strong>No hay calificaciones: </strong><hr class="mt-2 mb-2" />
+                    {% else %}    
+                    <strong>nada: </strong><hr class="mt-2 mb-2" />
                         {% comment %} <div class="col-sm-5">
                             {% include "./estrellas.html" %}
                         </div> {% endcomment %}
-                        {% endif %}
+                        {% comment %} {% endif %} {% endcomment %}
                     {% endif %}
                 {% endfor %}
                 
 
-                {% comment %} <form action="" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="col-12"><br>
                         <div class="card">
@@ -104,7 +110,7 @@
                                                     <span class="fas fa-star" style="cursor: pointer;" id="4"></span>
                                                     <span class="fas fa-star" style="cursor: pointer;" id="5"></span>
                                                 </td>
-                                                <td><input type="hidden" class="calificacion form-control"  id="calificacion" name="calificacion" ></td>
+                                                <td><input type="number" class="calificacion form-control"  id="calificacion" name="calificacion" value={{calificacion.puntaje}}></td>
                                                 <td><input type="hidden" class="calificacion form-control"  id="id_usuario" name="id_usuario" value={{user.id}}></td>
                                                 <td><input type="submit"  class="ver btn btn-primary" id="boton_calificar" value="Calificar"><a href="{% url 'home' %}"></td>
                                             </tr>
@@ -114,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                </form> {% endcomment %}
+                </form>
             </div>
         </div>
     </div>

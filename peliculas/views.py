@@ -116,22 +116,39 @@ def detalle(request,id_pelicula):
     calificaciones=Calificacion.objects.all()
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
-        calificar(request,pelicula)
+        verificar_calificacion(request,pelicula)
     except Pelicula.DoesNotExist:
         return render(request,'administracion/404_admin.html')
     return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones})
 
+
+
 """
 Calificacion estrellas
 """
+def verificar_calificacion(request,pelicula):
+    artistas = Elenco.objects.all()
+    plataformas = Donde_ver_pelicula.objects.all()
+    calificaciones=Calificacion.objects.all()
+    usuario= request.user
+    if Calificacion.objects.filter(pelicula_id=pelicula) and Calificacion.objects.filter(usuario_id=usuario).count()  :
+    # if  Calificacion.objects.filter(usuario_id=usuario).count():
+        info="Ya califico"
+    else:
+        calificar(request,pelicula)
+        return redirect('home')    
+    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones},info) 
+
+
 def calificar(request,pelicula):
-    
+    usuario= request.user
+    # print(usuario)
     if(request.method=='POST'):
         puntos = request.POST["calificacion"]
-        usuario= request.user
+        # usuario= request.POST["calificacion"]
         calificacion = Calificacion(puntaje= puntos,pelicula=pelicula,usuario=usuario)  
         calificacion.save() 
-        return redirect('home')
+        return redirect('detalle',)
     
     else:
         
