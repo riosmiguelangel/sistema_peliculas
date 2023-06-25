@@ -2,6 +2,9 @@
 
 {% block title %}Bienvenidos{% endblock title %}
 {% load static %}
+{% block css %}
+<link href="{% static '/css/infoPeliculas.css' %}" rel="stylesheet">
+{% endblock css %}
 {% block content %}
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -30,13 +33,63 @@
                                     {% include "./caratula.html" %}
                                 </div>
                             {% endfor %}
-                        </div>
-                        <br>
-                    </div>
-                </div>
+                <div class="container">
+                     <!--Section heading-->
+        <h2 class="h1-responsive font-weight-bold text-center my-4">Solicita datos de tu pelicula</h2>
+        <!--Section description-->
+        <p class="text-center w-responsive mx-auto mb-5">Dejanos tu inquietud sobre que pelicula deberíamos agregar para calificar e informar</p>
 
+        <div class="row">
+
+        <!--Grid column-->
+            <div class="col-md-8 mb-md-0 mb-8">
+                
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+                <form style="padding-left: 400px;" name="contact-form" action="{% url 'welcome' %}" method="POST" novalidate>
+                    {% csrf_token %}
+                    {% comment %} {{ contacto_form }} {% endcomment %}
+                    
+                    {% comment %} <table>
+                        {{ contacto_form.as_table }}
+                    </table> {% endcomment %}
+
+                    {% comment %} <ul>
+                        {{ contacto_form.as_ul }}
+                    </ul> {% endcomment %}
+
+                    {% comment %} {{ contacto_form.as_p }} {% endcomment %}
+                         <div class="row">
+                        {% for campo in contacto_form %}
+                            <!--Grid column-->
+                            <div class="col-md-12">
+                                <div class="md-form mb-4">
+                                    <label for="name" class="form-label">{{ campo.label }}</label>
+                                    {{campo}}
+                                    {% comment %} 
+                                    {% if campo.field.widget.input_type == 'checkbox' %}
+                                        {{campo}} 
+                                        <label for="name" class="">{{ campo.label }}</label>
+                                    {% else %}
+                                        <label for="name" class="">{{ campo.label }}</label>
+                                        {{campo}}
+                                    {% endif %} {% endcomment %}
+                                </div>
+                                <div >{{campo.errors}}</div>
+                            </div>
+                            <!--Grid column-->
+                        {% endfor %}
+                    </div>
+                    <div class="text-center text-md-left mt-3">
+                        <button class="btn btn-primary" type="submit">Enviar</button>
+                    </div>
+                </form>
+                <div class="status"></div>
             </div>
-            
-        </div>
-    </div>
+                
+            </div>
+                    
 {% endblock content %}

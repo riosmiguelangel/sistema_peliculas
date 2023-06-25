@@ -4,6 +4,10 @@
     background-color: rgba(0,0,0,0.6);
 
   }
+
+  #cl{
+    padding-left: 400px;
+  }
   
   .imagen_p {
     opacity: 1;
@@ -72,4 +76,3 @@ th {
 label {
   display: inline-block;
 }
-
