@@ -49,21 +49,6 @@ class Donde_ver_pelicula(models.Model):
     def __str__(self):
         return self.plataforma.nombre
 
-
-class ElencoInLine(admin.TabularInline):
-    model = Elenco
-
-
-class Donde_ver_peliculaInLine(admin.TabularInline):
-    model = Donde_ver_pelicula
-
-class PeliculasAdmin(admin.ModelAdmin):
-    inlines = [
-        ElencoInLine,
-        Donde_ver_peliculaInLine,
-    ]
-
-
 class Calificacion(models.Model):
     # pelicula = models.IntegerField(verbose_name="pelicula_id")
     pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE)
@@ -74,6 +59,29 @@ class Calificacion(models.Model):
     def __str__(self):
         return self.puntaje,self.pelicula,self.usuario
         #return self.puntaje, User.objects.get(pk=self.user_id),self.pelicula
+
+
+class ElencoInLine(admin.TabularInline):
+    model = Elenco
+
+
+class CalificacionInLine(admin.TabularInline):
+    model = Calificacion
+
+class Donde_ver_peliculaInLine(admin.TabularInline):
+    model = Donde_ver_pelicula
+
+class PeliculasAdmin(admin.ModelAdmin):
+    inlines = [
+        ElencoInLine,
+        Donde_ver_peliculaInLine,
+        # CalificacionInLine,
+        
+    ]
+
+
+
+
 
 
     
