@@ -7,7 +7,7 @@ from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
+
 
 
 from django.views.generic import ListView
@@ -18,7 +18,7 @@ from django.conf import settings
 
 from peliculas.forms import RegistrarUsuarioForm, ContactoForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.views import LogoutView
 
 
