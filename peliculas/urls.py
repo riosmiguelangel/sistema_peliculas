@@ -8,6 +8,8 @@ urlpatterns = [
     path('home', views.home_peliculas, name="home"),
     path('contacto', views.contacto, name="contacto"),
     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
+    path('peliculas/detalle2/<int:id_pelicula>', views.detalle,name='detalle2'),
+    # path('promedio/', views.promedio_calificaiones,name='promedio'),
     
     #autenticacion
     path('registrarse', views.pelicula_registrarse, name='registrarse'),

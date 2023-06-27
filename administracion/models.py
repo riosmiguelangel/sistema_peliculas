@@ -50,15 +50,14 @@ class Donde_ver_pelicula(models.Model):
         return self.plataforma.nombre
 
 class Calificacion(models.Model):
-    # pelicula = models.IntegerField(verbose_name="pelicula_id")
     pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE)
     puntaje = models.IntegerField(verbose_name="puntaje")
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
-    # usuario = models.IntegerField(verbose_name="usuario")
 
     def __int__(self):
         return self.puntaje
-        #return self.puntaje, User.objects.get(pk=self.user_id),self.pelicula
+
+
 
 
 class ElencoInLine(admin.TabularInline):
