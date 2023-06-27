@@ -26,8 +26,11 @@ class ContactoForm(forms.Form):
    
     nombre = forms.CharField(
             label='Nombre', 
-            max_length=10,
+            max_length=20,
             validators=(solo_caracteres,),
+            error_messages={
+                    'required': 'Por favor completa el campo bbbbb'
+                },
             widget=forms.TextInput(
                     attrs={'class':'form-control',
                         'placeholder':'Solo letras'}
@@ -52,7 +55,7 @@ class ContactoForm(forms.Form):
     
     mensaje = forms.CharField(
         label='Mensaje',
-        max_length=50,
+        min_length=30,
         widget=forms.Textarea(attrs={'rows': 5,'class':'form-control','placeholder': 'Dejanos tu sugerencia'})
     )
    
@@ -68,23 +71,6 @@ class RegistrarUsuarioForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','email' , 'password1', 'password2']
-
-#-- Calificacion estrellas --
-# class CalificacionForm(forms.ModelForm):
-#     puntaje = forms.IntegerField(error_messages={'required':'Hello! no te olvide de mi!'})
-#     # usuario = forms.ModelChoiceField(queryset=User.objects.all())
-#     class Meta:
-#         model=Calificacion
-#         fields=['puntaje','pelicula','usuario']
-
-        # widgets = {
-        #     'puntaje' : forms.TextInput(attrs={'class':'form-control','placeholder':'Ingrese la calificacion'})
-        # }
-        # error_messages = {
-        #     'puntaje' :{
-        #         'required':'No te olvides de mi!'
-        #     }
-        # }
 
 class CalificacionForm(forms.Form):
     puntaje= forms.IntegerField(label="Puntaje", min_value=1)

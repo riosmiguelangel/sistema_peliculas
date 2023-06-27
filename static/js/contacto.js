@@ -55,7 +55,7 @@ asunto.addEventListener("focusout", ()=>{
 })
 
 
-mensaje.addEventListener("keyup", ()=>{
+mensaje.addEventListener("keyup",  ()=>{
     let contador = mensaje.value.split(' ').length;
     if(!mensaje.value){
         mensaje.classList.add("input-error");

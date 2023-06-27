@@ -8,28 +8,22 @@ from administracion.models import Elenco
 from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
-from django.contrib.auth.models import User
+from django.db.models import Avg
 
+from django.contrib import messages
+from django.contrib import messages
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth import authenticate, login, logout
 
 
 from django.views.generic import ListView
-from django.contrib import messages
-
 from django.core.mail import send_mail
 from django.conf import settings
-
-
-
 from peliculas.forms import RegistrarUsuarioForm, ContactoForm
-from django.contrib import messages
-
-from django.contrib.auth.views import LogoutView
-from django.contrib.auth import authenticate, login, logout
 from statistics import mean
-from django.db.models import Avg
-
-
-
 
 # Create your views here.
 class PeliculasListView(ListView):
@@ -114,15 +108,19 @@ class peliculas_LogoutView(LogoutView):
         messages.add_message(request, messages.INFO, 'Se ha cerrado la session correctamente.')
         return response
     
-# @login_required
+@login_required
 def home_peliculas(request):
-    peliculas = Pelicula.objects.all()
-    artistas = Elenco.objects.all()
-    plataformas = Donde_ver_pelicula.objects.all()
-    ver_plataformas = Plataforma.objects.all()
-    calificaciones=Calificacion.objects.all()
-    return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
-
+    if request.user.is_authenticated:
+        peliculas = Pelicula.objects.all()
+        artistas = Elenco.objects.all()
+        plataformas = Donde_ver_pelicula.objects.all()
+        ver_plataformas = Plataforma.objects.all()
+        calificaciones=Calificacion.objects.all()
+        return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
+    else:
+        return redirect('login')
+    
+    
 def peliculas_X_plataforma(request,id_plataforma):
     peliculas = Pelicula.objects.all()
     artistas = Elenco.objects.all()
@@ -141,7 +139,7 @@ def peliculas_X_plataforma(request,id_plataforma):
 
 
 
-# @login_required
+@login_required
 def detalle(request,id_pelicula):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()

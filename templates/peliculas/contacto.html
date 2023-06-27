@@ -1,12 +1,11 @@
 {% extends "peliculas/base.html" %}
 {% load static %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static '/css/infoPeliculas.css'%}?v={% now 'U' %}">    
 {% endblock css %} 
 
-
-
-  {% block content %}
+{% block content %}
 	<!--Section heading-->
     <h2 class="h1-responsive font-weight-bold text-center my-4">Solicita tu pelicula</h2>
     <!--Section description-->
@@ -46,11 +45,10 @@
             <div class="status"></div>
         </div>
     <!--Grid column-->
-    {%endblock content%}
+{%endblock content%}
 
-    {% block javascript %}
-    {% load static %}
-    <script src="{% static '/js/contacto.js'%}?v={% now 'U' %}"></script>
-    {% endblock %}
-    
+{% block javascript %}
+<script src="{% static '/js/contacto.js'%}"></script>
+{% endblock %}
+
     

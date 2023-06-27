@@ -14,8 +14,8 @@
                                 {% for ver_plataforma in ver_plataformas %}
                                     {% comment %} {% if plataforma.pelicula_id == pelicula.id %} {% endcomment %}
                                         <div class="col-sm-1">
-                                            <a href="{% url 'home' plataforma.id %}" title="home">
-                                            {% comment %} <a href="{% url 'home' %}">{% endcomment %}<img 
+                                            
+                                            <a href="{% url 'home' %}"><img
                                             src="{% static '/' %}{{ver_plataforma.icono}}" width="60" height="60" style="border-radius:10px"></a>
                                         </div>
                                     {% comment %} {% endif %} {% endcomment %}

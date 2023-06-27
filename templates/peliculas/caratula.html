@@ -2,8 +2,8 @@
     <div class="container">
         <div class="card ">
             <div class="contenedor">
-                <img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
-                    class="card-img-top image imagen_p" style="width:100%;min-height:350px">
+                <a href="{% url 'login' %}"><img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
+                    class="card-img-top image imagen_p" style="width:100%;min-height:350px"></a>
                 <div class="middle">
                     <div class="texto">
                         <strong>Resumen: </strong> {{pelicula.resumen}}
@@ -17,7 +17,7 @@
                     {{pelicula.genero}} ({{pelicula.estreno }})
                 </div>
                     <hr class="mt-1 mb-2" />
-                    <strong>Director:</strong> <a href="">{{pelicula.director}}</a> 
+                    <strong>Director:</strong> <a href="{% url 'login' %}">{{pelicula.director}}</a> 
                     <hr class="mt-2 mb-2" />
               <div style="height: 150px">
                     <strong>Reparto:</strong> <br class="mt-1 mb-2" />
