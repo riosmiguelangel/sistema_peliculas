@@ -48,6 +48,11 @@ class Donde_ver_pelicula(models.Model):
 
     def __str__(self):
         return self.plataforma.nombre
+    
+# class Donde_ver_peliculaManager(models.Manager):
+#     def get_by_plataforma(self, plataforma=plataforma_id):
+#         return self.filter(visible=True).filter(duration__gte=duration)
+
 
 class Calificacion(models.Model):
     pelicula = models.ForeignKey(Pelicula,on_delete=models.CASCADE)

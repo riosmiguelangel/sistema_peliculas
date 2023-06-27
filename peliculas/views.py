@@ -85,6 +85,24 @@ def home_peliculas(request):
     calificaciones=Calificacion.objects.all()
     return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
 
+def peliculas_X_plataforma(request,id_plataforma):
+    peliculas = Pelicula.objects.all()
+    artistas = Elenco.objects.all()
+    plataformas = Donde_ver_pelicula.objects.all()
+    ver_plataformas = Plataforma.objects.all()
+    calificaciones=Calificacion.objects.all()
+    try:
+        filter_plataforma=Donde_ver_pelicula.objects.get(pk=id_plataforma)
+        return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
+    
+    except Donde_ver_pelicula.DoesNotExist:
+        return render(request,'administracion/404_admin.html')
+    # return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
+
+
+
+
+
 # @login_required
 def detalle(request,id_pelicula):
     artistas = Elenco.objects.all()
@@ -100,10 +118,9 @@ def detalle(request,id_pelicula):
             calificar(request,pelicula)
             promedio=Calificacion.objects.filter(pelicula_id=pelicula).aggregate(puntaje_avg=Avg('puntaje'))
             return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones, 'promedio': promedio})
-        
     except Pelicula.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-
+    
 
 
 """

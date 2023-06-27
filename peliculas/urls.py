@@ -8,7 +8,7 @@ urlpatterns = [
     path('home', views.home_peliculas, name="home"),
     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
     path('peliculas/detalle2/<int:id_pelicula>', views.detalle,name='detalle2'),
-    # path('promedio/', views.promedio_calificaiones,name='promedio'),
+    path('puntuacion/<int:id_pelicula>', views.detalle,name='puntuacion'),
     
     #autenticacion
     path('registrarse', views.pelicula_registrarse, name='registrarse'),
