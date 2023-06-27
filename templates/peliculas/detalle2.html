@@ -1,6 +1,6 @@
 {% extends "peliculas/home.html" %}
 
-{% block title %}Detalle Peliculas{% endblock title %}
+{% block title %}Detalle doooos    Peliculas{% endblock title %}
 {% load static %}
 {% block css %}
 
@@ -28,7 +28,7 @@
                 class="card-img-top  image imagen_p" style="width:100%; min-height:350px">
             </div>
             <div class="card-body">
-                <div class="card-body">
+                {% comment %} <div class="card-body"> {% endcomment %}
                     <div class="row"> 
                         <div class="col-sm-4">
                             <div style="width: 100%">
@@ -66,13 +66,16 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-                        <div class="col-sm-12">
-                        {% include "./estrellas.html" %}
-                    </div>
-            {% comment %} </div> {% endcomment %}
-            <div class="col-sm-4">
-                <a href="{% url 'home' %}"><img
-                    src="{% static '/imagenes/home.png' %}  "width="90" height="90" style="border-radius:10px"></a>
+                    </div>  
+                <hr class="mt-2 mb-2" />
+
+                <div class="col-sm-1">
+                    {% include "./puntuacion.html" %}
+                </div>
+                <div class="col-sm-4">
+                    <a href="{% url 'home' %}"><img
+                        src="{% static '/imagenes/home.png' %} "width="90" height="90" style="border-radius:10px"></a>
+                </div>
             </div>
         </div>
     </div>
@@ -85,28 +88,4 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script>
-    $('#tabla_calificacion').on('click','tr .ver', function(){
-        let row = $(this).closest("tr");
-        let calificacion = row.find("td.eq[0]").val();
-        {% comment %} alert(calificacion + "segundo script");  {% endcomment %}
-    });
-
-    $('#tabla_calificacion').on('click','tr .fa-star', function(e){
-        let count;
-        console.log(e);
-        count = e.currentTarget.id[0];
-        let row = $(this).closest("tr");
-        row.find('.calificacion').val(count);
-        for(let i=0;i<5;i++){
-            if(i<count){
-                document.getElementById(i+1) .style.color="orange";
-            }else{
-                document.getElementById(i+1) .style.color="black";
-            }
-        }
-        {% comment %} alert(count);  {% endcomment %}
-    });
-</script>
-
 {% endblock javascript %}

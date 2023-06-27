@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="col-12">
                     <h5 class="card-title">Dejanos tu calificacion</h5>
-                    <table class="col-12" id="tabla_calificacion">
+                    <table id="tabla_calificacion">
                         <tbody>
                             <tr>
                                 <td>
@@ -15,9 +15,9 @@
                                     <span class="fas fa-star" style="cursor: pointer;" id="4"></span>
                                     <span class="fas fa-star" style="cursor: pointer;" id="5"></span>
                                 </td>
-                                <td><input type="submit"  class="ver btn btn-primary" id="boton_calificar" value="Calificar"></td>
                                 <td><input type="hidden" class="calificacion form-control"  id="calificacion" name="calificacion" ></td>
-                                <td><input type="hidden" class="calificacion form-control"  id="id_usuario" name="id_usuario" value={{user.id}}></td> 
+                                <td><input type="hidden" class="calificacion form-control"  id="id_usuario" name="id_usuario" value={{user.id}}></td>
+                                <td><input type="submit"  class="ver btn btn-primary" id="boton_calificar" value="Calificar"><a href="{% url 'home' %}"></td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,4 +1,10 @@
 {% load static %}
+{% block css %}
+
+    <!-- Puntuacion CSS -->
+    <link href="{% static '/css/puntuacion.css' %}" rel="stylesheet">
+
+{% endblock css %}
 
 <div class="container">
     <div class="card ">
@@ -12,43 +18,9 @@
                 </div>
             </div>
         </div>
-
-        {% comment %} <div class="card-body">
-            <div style="height: 90px">
-                <p class="text-2xl">{{pelicula.titulo}}</p>
-                {{pelicula.genero}} ({{pelicula.estreno }}) 
-            </div>
-            <hr class="mt-2 mb-2" />
-            <strong>Director:</strong> <a href="">{{pelicula.director}}</a>  
-            <hr class="mt-2 mb-2" />
-            <div style="height: 90px">
-                <strong>Reparto:</strong> <br class="mt-2 mb-2" />
-                {% for artista in artistas %}
-                    {% if artista.pelicula_id == pelicula.id %}
-                        <p>{{artista.artista}}</p>
-                    {% endif %}
-                {% endfor %} 
-                <hr class="mt-2 mb-2"/>
-            </div>            
-            <hr class="mt-2 mb-2" />
-        </div> {% endcomment %}
     </div>
 </div>
-{% comment %} <div class="container">
-    <div class="card ">
-        <div class="card-body">
-            <div class="row"> 
-                {% for plataforma in plataformas %}
-                    {% if plataforma.pelicula_id == pelicula.id %}
-                        <div class="col-sm-4">
-                            <a href="{% url 'home' %}"><img
-                            src="{% static '/' %}{{plataforma.plataforma.icono}}" width="100" height="100"></a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>  
-        </div>     
-    </div>
-</div>  {% endcomment %}
-
+<div class="col-sm-1">
+    {% include "./puntuacion.html" %}
+</div>
 <br>

@@ -1,5 +1,6 @@
 from typing import Generic
 from django.http import Http404
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from administracion.models import Pelicula
 from administracion.models import Genero
@@ -21,6 +22,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import authenticate, login, logout
+from statistics import mean
+from django.db.models import Avg
 
 
 
@@ -79,54 +82,45 @@ def home_peliculas(request):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()
     ver_plataformas = Plataforma.objects.all()
-    
-    return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas})
+    calificaciones=Calificacion.objects.all()
+    return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
 
 # @login_required
 def detalle(request,id_pelicula):
     artistas = Elenco.objects.all()
     plataformas = Donde_ver_pelicula.objects.all()
     calificaciones=Calificacion.objects.all()
+    usuario= request.user
     try:
         pelicula = Pelicula.objects.get(pk=id_pelicula)
-        verificar_calificacion(request,pelicula)
+        if Calificacion.objects.filter(pelicula_id=pelicula).filter(usuario_id=usuario):
+            promedio=Calificacion.objects.filter(pelicula_id=pelicula).aggregate(puntaje_avg=Avg('puntaje'))
+            return render(request, 'peliculas/detalle2.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones, 'promedio': promedio})
+        else:
+            calificar(request,pelicula)
+            promedio=Calificacion.objects.filter(pelicula_id=pelicula).aggregate(puntaje_avg=Avg('puntaje'))
+            return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones, 'promedio': promedio})
+        
     except Pelicula.DoesNotExist:
         return render(request,'administracion/404_admin.html')
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones})
 
 
 
 """
 Calificacion estrellas
 """
-def verificar_calificacion(request,pelicula):
-    artistas = Elenco.objects.all()
-    plataformas = Donde_ver_pelicula.objects.all()
-    calificaciones=Calificacion.objects.all()
-    usuario= request.user
-    if Calificacion.objects.filter(pelicula_id=pelicula) and Calificacion.objects.filter(usuario_id=usuario).count()  :
-    # if  Calificacion.objects.filter(usuario_id=usuario).count():
-        info="Ya califico"
-    else:
-        calificar(request,pelicula)
-        return redirect('home')    
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones},info) 
-
-
 def calificar(request,pelicula):
     usuario= request.user
-    # print(usuario)
     if(request.method=='POST'):
         puntos = request.POST["calificacion"]
-        # usuario= request.POST["calificacion"]
+        #usuario= request.POST["calificacion"]
+        usuario= request.user
         calificacion = Calificacion(puntaje= puntos,pelicula=pelicula,usuario=usuario)  
         calificacion.save() 
-        return redirect('detalle',)
-    
-    else:
         
-        return render(request,'peliculas/home.html')
-    
+    else:
+        return redirect('home')
+
 
 
 
