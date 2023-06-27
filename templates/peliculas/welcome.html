@@ -2,6 +2,10 @@
 
 {% block title %}Bienvenidos{% endblock title %}
 {% load static %}
+{% block css %}
+<link href="{% static '/css/infoPeliculas.css' %}" rel="stylesheet">
+{% endblock css %} 
+
 {% block content %}
 <div class="container-fluid">
     <div class="row justify-content-center">
@@ -30,13 +34,4 @@
                                     {% include "./caratula.html" %}
                                 </div>
                             {% endfor %}
-                        </div>
-                        <br>
-                    </div>
-                </div>
-
-            </div>
-            
-        </div>
-    </div>
-{% endblock content %}
+            {%endblock content%}

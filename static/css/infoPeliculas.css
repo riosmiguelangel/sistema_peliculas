@@ -4,6 +4,10 @@
     background-color: rgba(0,0,0,0.6);
 
   }
+
+  #cl{
+    padding-left: 400px;
+  }
   
   .imagen_p {
     opacity: 1;
@@ -40,7 +44,7 @@
   }
 
   
-t
+
 table {
   caption-side: bottom;
   border-collapse: collapse;
@@ -73,3 +77,13 @@ label {
   display: inline-block;
 }
 
+ul{
+  color: #8B0000;
+}
+
+h2{text-align: left; 
+  font-family: Arial; 
+  font-size: 30px; 
+  COLOR: #1278BF;
+  text-shadow: 0px 0px 9px #508AD3;
+  }

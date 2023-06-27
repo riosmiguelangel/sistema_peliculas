@@ -1,0 +1,56 @@
+{% extends "peliculas/base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/infoPeliculas.css'%}?v={% now 'U' %}">    
+{% endblock css %} 
+
+
+
+  {% block content %}
+	<!--Section heading-->
+    <h2 class="h1-responsive font-weight-bold text-center my-4">Solicita tu pelicula</h2>
+    <!--Section description-->
+    <h5 class=" text-center w-responsive mx-auto mb-5">Dejanos tus inquietudes, sugerencias o lo que te gustaria compartirnos acerca de la pagina</h5>
+
+    <div class="row">
+
+    <!--Grid column-->
+        <div class=" container col-md-6 mb-md-0 mb-6">
+            
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            <form id="contact-form" name="contact-form" action="{% url 'contacto' %}" method="POST" novalidate>
+                {% csrf_token %}
+               
+                <div class="row">
+                    {% for campo in contacto_form %}
+                        <!--Grid column-->
+                        <div class="col-md-12">
+                            <div class="md-form mb-0">
+                                <label for="name" class="form-label">{{ campo.label }}</label>
+                                {{campo}}
+                            
+                            </div>
+                            <div class="error" >{{campo.errors}}</div>
+                        </div>
+                        <!--Grid column-->
+                    {% endfor %}
+                </div>
+                <div class="text-center text-md-left mt-3">
+                    <button class="enviar btn btn-primary" type="submit">Enviar</button>
+                </div>
+            </form>
+            <div class="status"></div>
+        </div>
+    <!--Grid column-->
+    {%endblock content%}
+
+    {% block javascript %}
+    {% load static %}
+    <script src="{% static '/js/contacto.js'%}?v={% now 'U' %}"></script>
+    {% endblock %}
+    
+    

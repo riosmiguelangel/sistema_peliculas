@@ -3,23 +3,26 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from administracion.models import Pelicula
-from administracion.models import Genero
-from administracion.models import Artista
+
 from administracion.models import Elenco
 from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 
-from peliculas.forms import CalificacionForm
+
 
 from django.views.generic import ListView
-
-from administracion.forms import EditForm
-from peliculas.form import RegistrarUsuarioForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+
+from django.core.mail import send_mail
+from django.conf import settings
+
+
+
+from peliculas.forms import RegistrarUsuarioForm, ContactoForm
+from django.contrib import messages
+
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import authenticate, login, logout
 from statistics import mean
@@ -45,6 +48,8 @@ class PeliculasHomeListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+    
+    
 
 def home_show(request):
     peliculas = Pelicula.objects.all()
@@ -53,6 +58,39 @@ def home_show(request):
     ver_plataformas = Plataforma.objects.all()
     
     return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas})
+
+def contacto(request):
+      if(request.method=='POST'):
+        contacto_form = ContactoForm(request.POST)
+        if(contacto_form.is_valid()):  
+            messages.success(request,'Hemos recibido tus datos')  
+            # messages.info(request,'esto es otro tipo')    
+            mensaje=f"De: {contacto_form.cleaned_data['nombre']} <{contacto_form.cleaned_data['email']}>\n Asunto: {contacto_form.cleaned_data['asunto']}\n Mensaje: {contacto_form.cleaned_data['mensaje']}"
+            mensaje_html=f"""<p>De: {contacto_form.cleaned_data['nombre']} <a href="mailto:{contacto_form.cleaned_data['email']}">{contacto_form.cleaned_data['email']}</a></p>
+                <p>Asunto:  {contacto_form.cleaned_data['asunto']}</p>
+                <p>Mensaje: {contacto_form.cleaned_data['mensaje']}</p><p>De: {contacto_form.cleaned_data['nombre']} <a href="mailto:{contacto_form.cleaned_data['email']}">{contacto_form.cleaned_data['email']}</a></p>
+                <p>Mensaje: {contacto_form.cleaned_data['mensaje']}</p>"""
+
+            asunto="CONSULTA DESDE LA PAGINA - "+contacto_form.cleaned_data['asunto']
+            send_mail(
+                asunto,
+                mensaje,
+                settings.EMAIL_HOST_USER,
+                [settings.RECIPIENT_ADDRESS],
+                fail_silently=False,
+                html_message=mensaje_html
+            )  
+            contacto_form = ContactoForm() #reset formulario
+            # acción para tomar los datos del formulario            
+        else:
+            messages.warning(request,'Por favor revisa los errores en el formulario')
+      else:
+        contacto_form = ContactoForm()
+      context = {                              
+                'contacto_form':contacto_form
+            }
+    
+      return render(request,'peliculas/contacto.html',context)
 
 def pelicula_registrarse(request):
     if request.method == 'POST':

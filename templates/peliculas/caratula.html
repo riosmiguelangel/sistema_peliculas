@@ -19,14 +19,14 @@
                     <hr class="mt-1 mb-2" />
                     <strong>Director:</strong> <a href="">{{pelicula.director}}</a> 
                     <hr class="mt-2 mb-2" />
-                {% comment %} <div style="height: 150px">
+              <div style="height: 150px">
                     <strong>Reparto:</strong> <br class="mt-1 mb-2" />
                     {% for artista in artistas %}
                         {% if artista.pelicula_id == pelicula.id %}
                             <p>{{artista.artista}}</p>
                         {% endif %}
                     {% endfor %} 
-                </div> {% endcomment %}
+              </div>
                 <hr class="mt-2 mb-2" />
             </div>
             

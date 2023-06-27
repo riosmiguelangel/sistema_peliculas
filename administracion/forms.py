@@ -4,8 +4,7 @@ from .models import Genero, Artista,Pelicula,Calificacion,Plataforma
 from django.contrib.auth.models import User
 from PIL import Image
 
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+
 
 class EditForm(forms.Form):
     
@@ -77,76 +76,6 @@ class PlataformaForm(forms.ModelForm):
             'icono' : forms.FileInput(attrs={'class':'form-control'}),
         }
 
-class AltaPeliculaForm(forms.Form):
-    titulo = forms.CharField(
-            label='Titulo', 
-            max_length=255,
-            widget=forms.TextInput(
-                    attrs={'class':'form-control','placeholder':'Ingrese titulo de la pelicula', 'rows' : '4'}
-            )
-        )
-    
-    estreno = forms.IntegerField(
-        label='Año_estreno',
-        max_value=2200,
-        min_value=1900,
-    )
-
-    genero = forms.ModelChoiceField(
-        label='Genero',
-        queryset=Genero.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control'}),
-        initial='Seleccione una opcion'
-    )
-
-    director = forms.ModelChoiceField(
-        label='Director',
-        queryset=Artista.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control'}),
-        initial='Seleccione una opcion'
-    )
-
-    artista1 = forms.ModelChoiceField(
-        label='Protagonista 1',
-        queryset=Artista.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control'}),
-        initial='Seleccione una opcion'
-    )
-    
-
-    artista2 = forms.ModelChoiceField(
-        label='Protagonista 2',
-        queryset=Artista.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control'}),
-        initial='Seleccione una opcion'
-    )
-   
-    artista3 = forms.ModelChoiceField(
-        label='Protagonista 3',
-        queryset=Artista.objects.all(),
-        widget=forms.Select(attrs={'class':'form-control'}), 
-        initial='Seleccione una opcion'
-    )
-
-    """ portada = forms.ImageField(
-            label='Portada',    
-            max_length=255,
-            widget=forms.FileInput(
-                        attrs={'class':'btn btn-primary'})
-        ) """
-
-    resumen = forms.CharField(
-        label='Resumen',
-        max_length=500,
-        widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
-    )
-
-    
-
-    def clean(self):
-    # Validar si el Alumno a crear ya existe
-        if Pelicula.objects.filter(titulo=self.cleaned_data["titulo"]).exists():
-            raise ValidationErr("Ya existe un pelicula con ese titulo")
 
 class PeliculaForm(forms.ModelForm):
 
@@ -181,10 +110,16 @@ class PeliculaForm(forms.ModelForm):
     Portada_grande = forms.ImageField(
          widget=forms.FileInput(attrs={'class':'form-control'})
     )
+
+    def clean(self):
+    # Validar si la pelicula a crear ya existe
+     if Pelicula.objects.filter(titulo=self.cleaned_data["titulo"]).exists():
+        raise ValidationErr("Ya existe un pelicula con ese titulo")
     
     class Meta:
         model=Pelicula
-        fields=['titulo','estreno','portada','resumen','genero','director']
+        fields=['titulo','estreno','portada','resumen','genero','director']  
+    
 
 
 class ArtistasForm(forms.ModelForm):

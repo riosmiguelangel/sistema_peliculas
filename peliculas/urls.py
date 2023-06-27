@@ -6,6 +6,7 @@ urlpatterns = [
     #path('peliculas_index', views.peliculas_index, name="peliculas_index"),
     path('', views.home_show, name="welcome"),
     path('home', views.home_peliculas, name="home"),
+    path('contacto', views.contacto, name="contacto"),
     path('peliculas/detalle/<int:id_pelicula>', views.detalle,name='detalle'),
     path('peliculas/detalle2/<int:id_pelicula>', views.detalle,name='detalle2'),
     path('puntuacion/<int:id_pelicula>', views.detalle,name='puntuacion'),
