@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from administracion.models import Pelicula
 
 from administracion.models import Elenco
@@ -15,6 +15,8 @@ from django.contrib import messages
 
 from django.core.mail import send_mail
 from django.conf import settings
+
+
 
 from peliculas.forms import RegistrarUsuarioForm, ContactoForm
 from django.contrib import messages
@@ -50,18 +52,24 @@ def home_show(request):
     plataformas = Plataforma.objects.all()
     artistas = Elenco.objects.all()
     ver_plataformas = Plataforma.objects.all()
+    
+    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas})
 
-    if(request.method=='POST'):
+def contacto(request):
+      if(request.method=='POST'):
         contacto_form = ContactoForm(request.POST)
         if(contacto_form.is_valid()):  
             messages.success(request,'Hemos recibido tus datos')  
             # messages.info(request,'esto es otro tipo')    
-            mensaje=f"De: {contacto_form.cleaned_data['nombre']} <{contacto_form.cleaned_data['email']}>\n Mensaje: {contacto_form.cleaned_data['mensaje']}"
-            mensaje_html=f"""
-                <p>De: {contacto_form.cleaned_data['nombre']} <a href="mailto:{contacto_form.cleaned_data['email']}">{contacto_form.cleaned_data['email']}</a></p>
-                <p>Mensaje: {contacto_form.cleaned_data['mensaje']}</p>
-            """
+            mensaje=f"De: {contacto_form.cleaned_data['nombre']} <{contacto_form.cleaned_data['email']}>\n Asunto: {contacto_form.cleaned_data['asunto']}\n Mensaje: {contacto_form.cleaned_data['mensaje']}"
+            mensaje_html=f"""<p>De: {contacto_form.cleaned_data['nombre']} <a href="mailto:{contacto_form.cleaned_data['email']}">{contacto_form.cleaned_data['email']}</a></p>
+                <p>Asunto:  {contacto_form.cleaned_data['asunto']}</p>
+                <p>Mensaje: {contacto_form.cleaned_data['mensaje']}</p><p>De: {contacto_form.cleaned_data['nombre']} <a href="mailto:{contacto_form.cleaned_data['email']}">{contacto_form.cleaned_data['email']}</a></p>
+                <p>Mensaje: {contacto_form.cleaned_data['mensaje']}</p>"""
+
+            asunto="CONSULTA DESDE LA PAGINA - "+contacto_form.cleaned_data['asunto']
             send_mail(
+                asunto,
                 mensaje,
                 settings.EMAIL_HOST_USER,
                 [settings.RECIPIENT_ADDRESS],
@@ -72,11 +80,13 @@ def home_show(request):
             # acción para tomar los datos del formulario            
         else:
             messages.warning(request,'Por favor revisa los errores en el formulario')
-    else:
+      else:
         contacto_form = ContactoForm()
+      context = {                              
+                'contacto_form':contacto_form
+            }
     
-    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'contacto_form':contacto_form})
-    
+      return render(request,'peliculas/contacto.html',context)
 
 def pelicula_registrarse(request):
     if request.method == 'POST':
@@ -131,13 +141,15 @@ def verificar_calificacion(request,pelicula):
     plataformas = Donde_ver_pelicula.objects.all()
     calificaciones=Calificacion.objects.all()
     usuario= request.user
-    if Calificacion.objects.filter(pelicula_id=pelicula) and Calificacion.objects.filter(usuario_id=usuario).count()  :
-    # if  Calificacion.objects.filter(usuario_id=usuario).count():
+    usuario_id= User.objects.all()
+    pelicula_id = Pelicula.objects.all()
+    if (pelicula==pelicula_id) and (usuario==usuario_id) :
+      if Calificacion.objects.filter(usuario_id==usuario).count():
         info="Ya califico"
-    else:
+      else:
         calificar(request,pelicula)
         return redirect('home')    
-    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones},info) 
+    return render(request, 'peliculas/detalle.html', {'pelicula':pelicula, 'artistas':artistas, 'plataformas':plataformas, 'calificaciones':calificaciones}) 
 
 
 def calificar(request,pelicula):
@@ -148,7 +160,7 @@ def calificar(request,pelicula):
         # usuario= request.POST["calificacion"]
         calificacion = Calificacion(puntaje= puntos,pelicula=pelicula,usuario=usuario)  
         calificacion.save() 
-        return redirect('detalle',)
+        return render(request,'peliculas/detalle.html',{'pelicula':pelicula, 'usuario': usuario})
     
     else:
         

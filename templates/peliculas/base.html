@@ -13,7 +13,7 @@
     <!-- Scripts -->
     <script src="{% static 'js/app.js' %}" defer></script>
     <script src="{% static '/js/estrella.js' %}"></script>
-
+    <script src="{% static '/js/scripts.js' %}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -47,6 +47,7 @@
             {% else %}
                 <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary me-2">Iniciar Sesión</a>
                 <a type="button" href="{% url 'registrarse' %}" class="btn btn-outline-primary me-2">Registrarse</a>
+                <a type="button" href="{% url 'contacto' %}" class="btn btn-outline-primary me-2">Contactate</a>
             {% endif %}
                     
         </div>

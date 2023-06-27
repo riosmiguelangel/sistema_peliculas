@@ -9,3 +9,13 @@ function calificar(iten){
         }
     }
 }
+
+
+const errores = document.querySelector("error");
+const btnEnviar = document.querySelector("enviar");
+const nombre =document.getElementById("id_nombre");
+const mail =document.getElementById("id_email");
+const  asunto  = documento . getElementById ( "id_asunto" ) ;
+const mensaje =document.getElementById("id_mensaje");
+
+

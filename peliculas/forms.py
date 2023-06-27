@@ -26,7 +26,7 @@ class ContactoForm(forms.Form):
    
     nombre = forms.CharField(
             label='Nombre', 
-            max_length=50,
+            max_length=10,
             validators=(solo_caracteres,),
             widget=forms.TextInput(
                     attrs={'class':'form-control',
@@ -44,9 +44,15 @@ class ContactoForm(forms.Form):
             widget=forms.TextInput(attrs={'class':'form-control','type':'email','placeholder': 'ejemplo@ej.com'})
         )
     
+    asunto = forms.CharField(
+        label='Asunto',
+        max_length=100,
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+    
     mensaje = forms.CharField(
         label='Mensaje',
-        max_length=500,
+        max_length=50,
         widget=forms.Textarea(attrs={'rows': 5,'class':'form-control','placeholder': 'Dejanos tu sugerencia'})
     )
    

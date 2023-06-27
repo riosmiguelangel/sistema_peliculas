@@ -56,8 +56,8 @@ class Calificacion(models.Model):
     usuario = models.ForeignKey(User,on_delete=models.CASCADE)
     # usuario = models.IntegerField(verbose_name="usuario")
 
-    def __str__(self):
-        return self.puntaje,self.pelicula,self.usuario
+    def __int__(self):
+        return self.puntaje
         #return self.puntaje, User.objects.get(pk=self.user_id),self.pelicula
 
 
