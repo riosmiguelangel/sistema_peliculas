@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     #path('peliculas_index', views.peliculas_index, name="peliculas_index"),
-    path('', login_required(views.home_show), name="welcome"),
+    path('', views.home_show, name="welcome"),
     path('home', login_required(views.home_peliculas), name="home"),
     path('contacto', views.contacto, name="contacto"),
     path('peliculas/detalle/<int:id_pelicula>', login_required(views.detalle),name='detalle'),

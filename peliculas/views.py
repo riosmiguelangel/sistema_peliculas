@@ -8,6 +8,7 @@ from administracion.models import Elenco
 from administracion.models import Plataforma
 from administracion.models import Donde_ver_pelicula
 from administracion.models import Calificacion
+from administracion.models import Genero
 from django.db.models import Avg
 
 from django.contrib import messages
@@ -46,12 +47,13 @@ class PeliculasHomeListView(ListView):
     
 
 def home_show(request):
-    peliculas = Pelicula.objects.all()
+    peliculas = Pelicula.objects.all().order_by('genero_id')
     plataformas = Plataforma.objects.all()
     artistas = Elenco.objects.all()
+    generos = Genero.objects.all().order_by('nombre')
     ver_plataformas = Plataforma.objects.all()
     
-    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas})
+    return render(request, 'peliculas/welcome.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'generos':generos})
 
 def contacto(request):
       if(request.method=='POST'):
@@ -111,16 +113,19 @@ class peliculas_LogoutView(LogoutView):
 @login_required
 def home_peliculas(request):
     if request.user.is_authenticated:
+        #peliculas = Pelicula.objects.all().order_by('generos_id')
         peliculas = Pelicula.objects.all()
         artistas = Elenco.objects.all()
         plataformas = Donde_ver_pelicula.objects.all()
         ver_plataformas = Plataforma.objects.all()
         calificaciones=Calificacion.objects.all()
-        return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas, 'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones,})
+        generos = Genero.objects.all().order_by('nombre')
+        return render(request, 'peliculas/home.html', {'peliculas':peliculas, 'artistas':artistas, 'plataformas':plataformas,
+                     'ver_plataformas':ver_plataformas, 'calificaciones':calificaciones, 'generos': generos})
     else:
         return redirect('login')
     
-    
+
 def peliculas_X_plataforma(request,id_plataforma):
     peliculas = Pelicula.objects.all()
     artistas = Elenco.objects.all()

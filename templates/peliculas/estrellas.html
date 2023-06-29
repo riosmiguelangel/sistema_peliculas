@@ -1,11 +1,11 @@
 <form action="" method="POST" enctype="multipart/form-data">
   {% csrf_token %}
-    <div class="col-12"><br>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-12">
+    {% comment %} <div class="col-12"><br> {% endcomment %}
+        {% comment %} <div class="card"> {% endcomment %}
+            {% comment %} <div class="card-body"> {% endcomment %}
+                {% comment %} <div class="col-12"> {% endcomment %}
                     <h5 class="card-title">Dejanos tu calificacion</h5>
-                    <table class="col-10" id="tabla_calificacion">
+                    <table class="col-12" id="tabla_calificacion">
                         <tbody>
                             <tr>
                                 <td>
@@ -21,10 +21,10 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                {% comment %} </div> {% endcomment %}
+            {% comment %} </div> {% endcomment %}
+        {% comment %} </div> {% endcomment %}
+    {% comment %} </div> {% endcomment %}
 </form>
     <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

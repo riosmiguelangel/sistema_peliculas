@@ -1,5 +1,6 @@
 from django.urls import path, re_path, include
 from . import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     

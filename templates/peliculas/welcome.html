@@ -26,12 +26,24 @@
                         </div>  
                     </div>     
                 </div>
-                <div class="card-body">
+                <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            {% for pelicula in peliculas %}
-                                <div class="col-sm-3">
-                                    {% include "./caratula.html" %}
+                            {% for genero in generos %}
+                                <div class="container">
+                                    <h2 class="h1-responsive font-weight-bold text-left my-4">{{genero.nombre}}</h2>
+                                    <div class="row"> 
+                                        {% for pelicula in peliculas %}
+                                            {% if pelicula.genero_id == genero.id %}
+                                                <div class="col-sm-3">
+                                                    {% include "./caratula.html" %}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             {% endfor %}
-            {%endblock content%}
+                        </div>
+                    </div>
+                </div>    
+{%endblock content%}

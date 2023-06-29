@@ -24,28 +24,7 @@
                         </div>     
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                {% for genero in generos %}
-                                    <div class="container">
-                                        <h2 class="h1-responsive font-weight-bold text-left my-4">{{genero.nombre}}</h2>
-                                        <div class="row"> 
-                                            {% for pelicula in peliculas %}
-                                                {% if pelicula.genero_id == genero.id %}
-                                                    <div class="col-sm-3">
-                                                        {% include "./edit-pelicula.html" %}
-                                                    </div>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-
-
-                    {% comment %} <div class="card-body">
+                    <div class="card-body">
                         <div class="card-body">
                             <div class="row"> 
                                 {% for pelicula in peliculas %}
@@ -55,8 +34,9 @@
                                 {% endfor %}
                             </div>
                         <br>
-                    </div> {% endcomment %}
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

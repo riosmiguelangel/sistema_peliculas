@@ -19,8 +19,8 @@
     <div class="card ">
         <div class="card-body">
             <div style="height: 90px">
-                <p class="text-4xl">{{pelicula.titulo}}</p>
-                <p class="text-2xl">{{pelicula.genero}} ({{pelicula.estreno }})</p>
+                <p class="text-4xl">{{pelicula.titulo}} ({{pelicula.estreno }})</p>
+                <p class="text-3xl">{{pelicula.genero}}</p>
             </div>
             <hr class="mt-2 mb-2" />
             <div>
@@ -28,7 +28,6 @@
                 class="card-img-top  image imagen_p" style="width:100%; min-height:350px">
             </div>
             <div class="card-body">
-                <div class="card-body">
                     <div class="row"> 
                         <div class="col-sm-4">
                             <div style="width: 100%">
@@ -36,15 +35,14 @@
                                 class="card-img-top image imagen_p" style="width:100%;min-height:350px">
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <p class="text-4xl">{{pelicula.titulo}}({{pelicula.estreno }})</p>
                             <hr class="mt-2 mb-2" />
-                            <p class="text-2xl">{{pelicula.genero}}</p>
                             <hr class="mt-2 mb-2" /> 
                             <strong>Director:</strong> <a href="">{{pelicula.director}}</a>
                             <hr class="mt-2 mb-2" />
                             
-                        <div style="height: 160px">
+                        <div style="height: 230px">
                             <strong>Reparto:</strong> <br class="mt-2 mb-2" />
                             {% for artista in artistas %}
                                 {% if artista.pelicula_id == pelicula.id %}
@@ -52,12 +50,13 @@
                                 {% endif %}
                             {% endfor %} 
                             <hr class="mt-2 mb-2"/>
-                        </div>            
-                            <div>
-                                <strong>Resumen: </strong> {{pelicula.resumen}}
+                        </div>   
+                            <div class="col-sm-12">
+                                <div class="col-sm-12">
+                                    {% include "./estrellas.html" %}
+                                </div>
                             </div>
                         </div>
-                        {% comment %} <div class="col-sm-4"> {% endcomment %}
                         {% for plataforma in plataformas %}
                             {% if plataforma.pelicula_id == pelicula.id %}
                                 <div class="col-sm-1">
@@ -66,16 +65,57 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-                        <div class="col-sm-12">
-                        {% include "./estrellas.html" %}
-                    </div>
-            {% comment %} </div> {% endcomment %}
-            
-        </div>
-        <div class="row">
-            <div class="col-md-10"></div>
-            <div class="col-md-2"><a href="{% url 'home' %}"><img
-                    src="{% static '/imagenes/home.png' %}  "width="90" height="90"  style="border-radius:10px"></a>
+                        <div class="card ">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div>
+                                            <strong class="text-2xl">Resumen: </strong>
+                                            <hr class="mt-2 mb-2"/>
+                                            {{pelicula.resumen}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %} {% for calificacion in calificaciones%}
+                            {% ifequal calificacion.pelicula_id pelicula.id %} 
+                            <strong>paso el primer if: </strong>{{calificacion.pelicula_id}}  {{calificacion.puntaje}}  {{calificacion.usuario}}
+                                {% ifequal calificacion.usuario_id user.id %}
+                                    <strong>paso el segundo if: </strong>{{calificacion.pelicula_id}}  {{calificacion.puntaje}}  {{calificacion.usuario}}
+                                    <div class="col-sm-1">
+                                        {% include "./puntuacion.html" %}
+                                    </div>
+                                {% else%}
+                                        <div class="col-sm-12">
+                                            {% include "./estrellas.html" %}
+                                        </div>
+                                {%endifequal%}     
+                            {%endifequal%}
+                        {%endfor%} {% endcomment %}
+                                                                                
+                        
+                    {% comment %} </div> {% endcomment %}
+                        {% comment %} {% if calificaciones|length > 0 %}
+                        <strong>Calificaciones entro en el if: </strong> {{calificaciones.puntaje}}
+                            <div class="col-sm-12">
+                                {% include "./estrellas.html" %}
+                            </div>
+                            <div class="col-sm-1">
+                                {% include "./puntuacion.html" %}
+                            </div>
+                        {%else%}
+                            <div class="col-sm-1">
+                                {% include "./puntuacion.html" %}
+                            </div>
+                        {% endif %} {% endcomment %}
+
+            </div>
+                <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2"><a href="{% url 'home' %}"><img
+                        src="{% static '/imagenes/home.png' %}  "width="90" height="90"  style="border-radius:10px"></a>
         </div>
     </div>
 

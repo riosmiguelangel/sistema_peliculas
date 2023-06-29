@@ -11,12 +11,12 @@
         <div class="contenedor">
                 <a href="{% url 'detalle' pelicula.id %}" title="Detalle">
                 <img src="{% static '/'%}{{pelicula.portada}}"  alt="Portada"
-                class="card-img-top image imagen_p" style="width:100%;min-height:350px">
-            <div class="middle">
+                class="card-img-top image imagen_p" style="width:100%;min-height:350px"></a>
+            {% comment %} <div class="middle">
                 <div class="texto">
                     <strong>Resumen: </strong> {{pelicula.resumen}}
                 </div>
-            </div>
+            </div> {% endcomment %}
         </div>
     </div>
 </div>
